@@ -37,7 +37,7 @@ public class SpatialAnchorLoader : MonoBehaviour
     [SerializeField]
     OVRSpatialAnchor _anchorPrefab;
 
-    Action<OVRSpatialAnchor.UnboundAnchor, bool> _onLoadAnchor;
+    public Action<OVRSpatialAnchor.UnboundAnchor, bool> _onLoadAnchor;
 
     public void LoadAnchorsByUuid()
     {
@@ -70,9 +70,28 @@ public class SpatialAnchorLoader : MonoBehaviour
         });
     }
 
+    public void LoadAnchorsByUuid(Guid[] idList)
+    {
+        Load(new OVRSpatialAnchor.LoadOptions
+        {
+            Timeout = 0,
+            StorageLocation = OVRSpace.StorageLocation.Local,
+            Uuids = idList
+        });
+    }
+
+    public void LoadLevelObjects()
+    {
+
+    }
+
     private void Awake()
     {
         _onLoadAnchor = OnLocalized;
+    }
+
+    private void Start()
+    {
     }
 
     private void Load(OVRSpatialAnchor.LoadOptions options) => OVRSpatialAnchor.LoadUnboundAnchors(options, anchors =>
