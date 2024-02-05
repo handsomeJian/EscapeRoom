@@ -17,4 +17,9 @@ public class DepthManager : MonoBehaviour
     {
         _depthTextureProvider.RemoveHands(true);
     }
+
+    private void Update()
+    {
+        _depthTextureProvider.RemoveHands(true);
+    }
 }
