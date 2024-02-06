@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Events;
+using Oculus.Interaction;
 
 public class LevelObjectComponent : MonoBehaviour
 {
@@ -16,9 +18,13 @@ public class LevelObjectComponent : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnObjectStartMoving(PointerEvent evt)
     {
-        
+        LevelObjectManager.Instance.RemoveSpatialAnchor(this);
+    }
+
+    public void OnObjectEndMoving(PointerEvent evt)
+    {
+        LevelObjectManager.Instance.CreateSpatialAnchor(this);
     }
 }

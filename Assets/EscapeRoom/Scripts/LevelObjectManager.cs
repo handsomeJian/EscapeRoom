@@ -5,11 +5,11 @@ using System;
 
 public class LevelObjectManager : MonoBehaviour
 {
-    public LevelObjectComponent[] LevelObjectPrefabList;
+    //public LevelObjectComponent[] LevelObjectPrefabList;
 
-    private Dictionary<LevelObjectComponent, Guid> _objectToIdDict;
+    public LevelObjectComponent[] LevelObjectList;
 
-    public List<LevelObjectComponent> LevelObjectList;
+    private Dictionary<LevelObjectComponent, Guid> _objectToIdDict = new Dictionary<LevelObjectComponent, Guid>();
 
     public static LevelObjectManager Instance;
 
@@ -40,21 +40,17 @@ public class LevelObjectManager : MonoBehaviour
 
     public void LoadLevelObjects()
     {
+        LevelObjectList = FindObjectsOfType<LevelObjectComponent>();
+
         var idList = new List<Guid>();
-        foreach (var obj in LevelObjectPrefabList)
+        foreach (var obj in LevelObjectList)
         {
             var keyName = "ObjName:" + obj.name;
             if (PlayerPrefs.HasKey(keyName))
             {
-                var newId = new Guid(PlayerPrefs.GetString(keyName));
-                _objectToIdDict[obj] = newId;
-                idList.Add(newId);
-            }
-            else
-            {
-                var levelObj = Instantiate(obj);
-                levelObj.hasAnchor = false;
-                LevelObjectList.Add(levelObj);
+                var existingId = new Guid(PlayerPrefs.GetString(keyName));
+                _objectToIdDict[obj] = existingId;
+                idList.Add(existingId);
             }
         }
         _anchorLoader.LoadAnchorsByUuid(idList.ToArray());
@@ -81,23 +77,69 @@ public class LevelObjectManager : MonoBehaviour
             return;
         }
 
-        var obj = GetLevelObjectWithId(unboundAnchor.Uuid);
-        if (obj == null)
+        var levelObj = GetLevelObjectWithId(unboundAnchor.Uuid);
+        if (levelObj == null)
         {
             Log($"{unboundAnchor} does not have related level obj!");
             return;
         }
-
-        var pose = unboundAnchor.Pose;
-        var levelObj = Instantiate(obj, pose.position, pose.rotation);
 
         levelObj.hasAnchor = true;
         levelObj.AnchorID = unboundAnchor.Uuid;
 
         var newAnchor = levelObj.gameObject.AddComponent<OVRSpatialAnchor>();
         unboundAnchor.BindTo(newAnchor);
+    }
 
-        LevelObjectList.Add(levelObj);
+    public void RemoveSpatialAnchor(LevelObjectComponent levelObj)
+    {
+        if (!levelObj.hasAnchor) return;
+
+        var objAnchor = levelObj.GetComponent<OVRSpatialAnchor>();
+        if (!objAnchor) return;
+
+        objAnchor.Erase((anchor, success) =>
+        {
+            if (success)
+            {
+                levelObj.hasAnchor = false;
+                Destroy(anchor);
+            }
+        });
+    }
+
+    public void CreateSpatialAnchor(LevelObjectComponent levelObj)
+    {
+        if (levelObj.hasAnchor || levelObj.GetComponent<OVRSpatialAnchor>() != null) return;
+
+        OVRSpatialAnchor newAnchor = levelObj.gameObject.AddComponent<OVRSpatialAnchor>();
+        StartCoroutine(anchorCreated(newAnchor));
+        levelObj.hasAnchor = true;
+    }
+
+    public IEnumerator anchorCreated(OVRSpatialAnchor anchor)
+    {
+        // keep checking for a valid and localized spatial anchor state
+        while (!anchor.Created && !anchor.Localized)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        //when ready, save the spatial anchor using OVRSpatialAnchor.Save()
+        anchor.Save((anchor, success) =>
+        {
+            if (!success) return;
+
+            SaveUuidToPlayerPrefs(anchor);
+        });
+    }
+
+    void SaveUuidToPlayerPrefs(OVRSpatialAnchor anchor)
+    {
+        var levelObjComp = anchor.GetComponent<LevelObjectComponent>();
+        var keyName = "ObjName:" + levelObjComp.name;
+
+        PlayerPrefs.SetString(keyName, anchor.Uuid.ToString());
     }
 
     private static void Log(string message) => Debug.Log($"[SpatialAnchorsUnity]: {message}");
