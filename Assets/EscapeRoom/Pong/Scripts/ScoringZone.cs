@@ -1,16 +1,28 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(BoxCollider))]
 public class ScoringZone : MonoBehaviour
 {
     public UnityEvent scoreTrigger;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.TryGetComponent<Ball>(out var ball)) {
+        Debug.Log("Scoring Trigger");
+        if (other.gameObject.TryGetComponent<Ball>(out var ball))
+        {
+            Debug.Log("Scoring");
             scoreTrigger.Invoke();
         }
     }
+
+    /*
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent<Ball>(out var ball)) {
+            Debug.Log("Scoring");
+            scoreTrigger.Invoke();
+        }
+    }*/
 
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(BoxCollider))]
 public class BouncySurface : MonoBehaviour
 {
     public enum ForceType
@@ -12,7 +12,7 @@ public class BouncySurface : MonoBehaviour
     public ForceType forceType = ForceType.Additive;
     public float bounceStrength = 0f;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.TryGetComponent<Ball>(out var ball))
         {
@@ -28,5 +28,4 @@ public class BouncySurface : MonoBehaviour
             }
         }
     }
-
 }

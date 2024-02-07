@@ -33,12 +33,13 @@ public class PongGameManager : MonoBehaviour
 
     public void NewRound()
     {
+        Debug.Log("New Round");
         playerPaddle.ResetPosition();
         computerPaddle.ResetPosition();
         ball.ResetPosition();
 
         CancelInvoke();
-        Invoke(nameof(StartRound), 1f);
+        Invoke(nameof(StartRound), 3f);
     }
 
     private void StartRound()

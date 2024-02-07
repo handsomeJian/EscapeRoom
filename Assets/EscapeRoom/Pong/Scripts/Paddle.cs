@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public abstract class Paddle : MonoBehaviour
 {
-    protected Rigidbody2D rb;
+    protected Rigidbody rb;
 
     public float speed = 8f;
     [Tooltip("Changes how the ball bounces off the paddle depending on where it hits the paddle. The further from the center of the paddle, the steeper the bounce angle.")]
@@ -11,13 +10,13 @@ public abstract class Paddle : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
     }
 
     public void ResetPosition()
     {
-        rb.velocity = Vector2.zero;
-        rb.position = new Vector2(rb.position.x, 0f);
+        rb.velocity = Vector3.zero;
+        //rb.position = new Vector2(rb.position.x, 0f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
