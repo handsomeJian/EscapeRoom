@@ -13,9 +13,12 @@ public class BouncySurface : MonoBehaviour
     public float bounceStrength = 0f;
 
     private void OnCollisionEnter(Collision collision)
+
     {
+
         if (collision.gameObject.TryGetComponent<Ball>(out var ball))
         {
+            Debug.Log("Collision detected!"); // Add this line for debugging
             switch (forceType)
             {
                 case ForceType.Additive:
