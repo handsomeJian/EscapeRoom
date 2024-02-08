@@ -43,6 +43,7 @@ public abstract class Paddle : MonoBehaviour
             // Re-apply the new direction to the ball
             ball.velocity = ballDirection * ball.velocity.magnitude;
             */
+            /*
             Rigidbody ballRigidbody = collision.rigidbody;
             Collider paddleCollider = collision.collider;
 
@@ -75,7 +76,7 @@ public abstract class Paddle : MonoBehaviour
             ballRigidbody.velocity = newVelocityDirection.normalized * ballVelocity.magnitude;
 
 
-
+            */
 
 
         }

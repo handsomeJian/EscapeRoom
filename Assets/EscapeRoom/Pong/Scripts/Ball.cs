@@ -8,7 +8,7 @@ public class Ball : MonoBehaviour
     public float baseSpeed = 5f;
     public float maxSpeed = Mathf.Infinity;
     public float currentSpeed { get; set; }
-
+    public float minHorizontalSpeed = 5f;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -48,4 +48,28 @@ public class Ball : MonoBehaviour
         rb.velocity = direction * currentSpeed;
     }
 
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        Vector3 normal = collision.GetContact(0).normal;
+        Vector3 newDirection = Vector3.Reflect(rb.velocity.normalized, normal);
+
+        // Ensure the ball only moves in the XY direction
+        newDirection.z = 0;
+        if (Mathf.Abs(newDirection.x) < minHorizontalSpeed)
+        {
+            newDirection.x = newDirection.x < 0 ? -minHorizontalSpeed : minHorizontalSpeed;
+        }
+
+        if (Mathf.Abs(newDirection.y) < minHorizontalSpeed)
+        {
+            newDirection.y = newDirection.y < 0 ? -minHorizontalSpeed : minHorizontalSpeed;
+        }
+        // Normalize the new direction to ensure consistent speed
+        newDirection = newDirection.normalized;
+
+        rb.velocity = newDirection * currentSpeed;
+
+    }
 }
