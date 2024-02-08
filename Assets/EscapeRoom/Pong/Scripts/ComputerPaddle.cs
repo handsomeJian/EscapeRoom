@@ -28,11 +28,12 @@ public class ComputerPaddle : Paddle
         {
             // Move towards the center of the field and idle there until the
             // ball starts coming towards the paddle again
+            /*
             if (localPos.y > 0f) {
                 rb.AddForce(transform.parent.TransformDirection(Vector3.down) * speed);
             } else if (localPos.y < 0f) {
                 rb.AddForce(transform.parent.TransformDirection(Vector3.up) * speed);
-            }
+            }*/
         }
     }
 
