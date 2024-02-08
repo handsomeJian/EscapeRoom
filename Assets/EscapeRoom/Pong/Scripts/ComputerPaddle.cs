@@ -4,7 +4,7 @@ public class ComputerPaddle : Paddle
 {
     [SerializeField]
     private Rigidbody ball;
-
+    public float fixedX = 0f; // The fixed local X position you want to maintain
     private void FixedUpdate()
     {
         // Check if the ball is moving towards the paddle (positive x velocity)
@@ -13,7 +13,8 @@ public class ComputerPaddle : Paddle
         var ballLocalVel = transform.parent.InverseTransformVector(ball.velocity);
         var ballLocalPos = transform.parent.InverseTransformPoint(ball.position);
         var localPos = transform.localPosition;
-
+        //Vector3 currentPosition = transform.localPosition;
+        //transform.localPosition = new Vector3(fixedX, currentPosition.y, currentPosition.z);
         if (ballLocalVel.x > 0f)
         {
             // Move the paddle in the direction of the ball to track it

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 [RequireComponent(typeof(BoxCollider))]
 public class BouncySurface : MonoBehaviour
@@ -15,10 +16,10 @@ public class BouncySurface : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
 
     {
-
+        
         if (collision.gameObject.TryGetComponent<Ball>(out var ball))
         {
-            Debug.Log("Collision detected!"); // Add this line for debugging
+            //Debug.Log("Collision detected!"); // Add this line for debugging
             switch (forceType)
             {
                 case ForceType.Additive:
@@ -30,5 +31,7 @@ public class BouncySurface : MonoBehaviour
                     return;
             }
         }
+
+        
     }
 }

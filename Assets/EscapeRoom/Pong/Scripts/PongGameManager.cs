@@ -33,7 +33,7 @@ public class PongGameManager : MonoBehaviour
 
     public void NewRound()
     {
-        Debug.Log("New Round");
+        //Debug.Log("New Round");
         playerPaddle.ResetPosition();
         computerPaddle.ResetPosition();
         ball.ResetPosition();

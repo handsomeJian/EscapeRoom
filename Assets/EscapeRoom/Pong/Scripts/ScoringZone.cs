@@ -8,10 +8,10 @@ public class ScoringZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Scoring Trigger");
+       // Debug.Log("Scoring Trigger");
         if (other.gameObject.TryGetComponent<Ball>(out var ball))
         {
-            Debug.Log("Scoring");
+            //Debug.Log("Scoring");
             scoreTrigger.Invoke();
         }
     }

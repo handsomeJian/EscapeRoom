@@ -19,7 +19,7 @@ public class Ball : MonoBehaviour
         rb.velocity = Vector3.zero;
         rb.position = transform.parent.TransformPoint(new Vector3(8.0f, 0.0f, 0.0f));
         transform.position = transform.parent.TransformPoint(new Vector3(8.0f, 0.0f, 0.0f));
-        Debug.Log("Reset Pos:" + transform.parent.TransformPoint(new Vector3(8.0f, 0.0f, 0.0f)));
+        //Debug.Log("Reset Pos:" + transform.parent.TransformPoint(new Vector3(8.0f, 0.0f, 0.0f)));
     }
 
     public void AddStartingForce()
@@ -37,7 +37,7 @@ public class Ball : MonoBehaviour
         rb.AddForce(direction * baseSpeed, ForceMode.VelocityChange);
         currentSpeed = baseSpeed;
 
-        Debug.Log("[Ball Start direction]:" + direction.ToString());
+        //Debug.Log("[Ball Start direction]:" + direction.ToString());
     }
 
     private void FixedUpdate()
