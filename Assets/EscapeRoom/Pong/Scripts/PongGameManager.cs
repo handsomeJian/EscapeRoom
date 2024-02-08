@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PongGameManager : MonoBehaviour
@@ -8,9 +9,10 @@ public class PongGameManager : MonoBehaviour
     [SerializeField] private Paddle computerPaddle;
     [SerializeField] private Text playerScoreText;
     [SerializeField] private Text computerScoreText;
+    [SerializeField] private GameObject[] PlayerHealth;
 
-    private int playerScore;
-    private int computerScore;
+    private int playerScore = 0;
+    private int computerScore = 0;
 
     private void Start()
     {
@@ -55,7 +57,17 @@ public class PongGameManager : MonoBehaviour
 
     public void OnComputerScored()
     {
-        SetComputerScore(computerScore + 1);
+        if (computerScore > 2 )
+        {
+            ///aaa
+        }
+        else
+        {
+
+            PlayerHealth[computerScore].SetActive(false);
+        }
+        computerScore += 1;
+        SetComputerScore(computerScore);
         NewRound();
     }
 
