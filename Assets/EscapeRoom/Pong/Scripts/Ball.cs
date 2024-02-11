@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-
+using System.Collections;
+using Unity.VisualScripting;
 [RequireComponent(typeof(Rigidbody))]
 public class Ball : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class Ball : MonoBehaviour
     public float maxSpeed = Mathf.Infinity;
     public float currentSpeed { get; set; }
     public float minHorizontalSpeed = 5f;
+    [SerializeField] AudioSource bonce;
+    [SerializeField] GameObject ballvfx;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -70,6 +73,22 @@ public class Ball : MonoBehaviour
         newDirection = newDirection.normalized;
 
         rb.velocity = newDirection * currentSpeed;
+
+        bonce.Play();
+        if (collision.gameObject.CompareTag("Paddle"))
+        {
+            //Debug.Log("paddle");
+            //StartCoroutine(ExampleCoroutine());
+
+        }
+
+
+     }
+    IEnumerator ExampleCoroutine()
+    {
+        //ballvfx.SetActive(true);
+        yield return new WaitForSeconds(1);
+        //ballvfx.SetActive(false);
 
     }
 }

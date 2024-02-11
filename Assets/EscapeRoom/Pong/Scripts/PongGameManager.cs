@@ -21,9 +21,10 @@ public class PongGameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R)) {
+        if (computerScore > 2) {
             NewGame();
         }
+
     }
 
     public void NewGame()
@@ -59,7 +60,8 @@ public class PongGameManager : MonoBehaviour
     {
         if (computerScore > 2 )
         {
-            ///aaa
+            //restart game if player loose 3 points
+            //NewGame();
         }
         else
         {
