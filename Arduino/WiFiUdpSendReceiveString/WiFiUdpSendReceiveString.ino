@@ -90,19 +90,20 @@ void loop() {
     Serial.println(packetBuffer);
 
     // send a reply, to the IP address and port that sent us the packet we received
-    Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
+    Udp.beginPacket(Udp.remoteIP(), 8000);
     Udp.write(ReplyBuffer);
     Udp.endPacket();
   }*/
   
   messageIndex++;
-  char numBuffer[10];
+  char numBuffer[100];
   String(messageIndex).toCharArray(numBuffer, sizeof(numBuffer));
-  Udp.beginPacket("192.168.31.214", 8000);
-  Udp.write("HAHAHAHA");
+  Serial.print(Udp.beginPacket("192.168.31.214", 8000));
+  Udp.write(numBuffer);
   Serial.print(Udp.endPacket());
   Serial.print("Send data: ");
   Serial.println(messageIndex);
+  //delay(1);
 }
 
 
