@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 [RequireComponent(typeof(BoxCollider))]
 public class BouncySurface : MonoBehaviour
