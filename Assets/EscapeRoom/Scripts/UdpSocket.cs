@@ -5,6 +5,7 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using UnityEngine.UI;
 
 public class UdpSocket : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class UdpSocket : MonoBehaviour
     UdpClient client;
     IPEndPoint remoteEndPoint; 
     Thread receiveThread; // Receiving Thread
+
+    public Text debugText;
+
+    string recievedText;
 
     IEnumerator SendDataCoroutine() // DELETE THIS: Added to show sending data from Unity to Python via UDP
     {
@@ -78,12 +83,19 @@ public class UdpSocket : MonoBehaviour
                 print(">> " + text);
                 Debug.Log("2333");
                 ProcessInput(text);
+                recievedText = text;
             }
             catch (Exception err)
             {
                 print(err.ToString());
             }
         }
+    }
+
+    private void Update()
+    {
+        debugText.text = recievedText;
+        //debugText.SetAllDirty();
     }
 
     private void ProcessInput(string input)
