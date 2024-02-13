@@ -1,5 +1,6 @@
 ﻿using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Scripting;
 using UnityEngine.UI;
 
 public class PongGameManager : MonoBehaviour
@@ -9,21 +10,21 @@ public class PongGameManager : MonoBehaviour
     [SerializeField] private Paddle computerPaddle;
     [SerializeField] private Text playerScoreText;
     [SerializeField] private Text computerScoreText;
-    [SerializeField] private GameObject[] PlayerHealth;
+    [SerializeField] private GameObject[] PlayerHealth, ComputerHealth;
+    [SerializeField] private GameObject FinalScore;
 
-    private int playerScore = 0;
-    private int computerScore = 0;
+    [SerializeField] private int playerScore = 0;
+    [SerializeField] private int computerScore = 0;
 
     private void Start()
     {
         NewGame();
+        FinalScore.SetActive(false);
+
     }
 
     private void Update()
     {
-        if (computerScore > 2) {
-            NewGame();
-        }
 
     }
 
@@ -31,6 +32,13 @@ public class PongGameManager : MonoBehaviour
     {
         SetPlayerScore(0);
         SetComputerScore(0);
+        //reset health
+        for (int i = 0; i < PlayerHealth.Length; i++)
+        {
+            PlayerHealth[i].SetActive(true);
+            ComputerHealth[i].SetActive(true);
+        }
+
         NewRound();
     }
 
@@ -52,25 +60,37 @@ public class PongGameManager : MonoBehaviour
 
     public void OnPlayerScored()
     {
-        SetPlayerScore(playerScore + 1);
-        NewRound();
+        playerScore +=1;
+        SetPlayerScore(playerScore);
+        if (playerScore == 3)
+        {
+            FinalScore.SetActive(true);
+            playerPaddle.ResetPosition();
+            computerPaddle.ResetPosition();
+            ball.ResetPosition();
+        }
+        else
+        {
+            NewRound();
+            ComputerHealth[playerScore - 1].SetActive(false);
+        }
+        
     }
 
     public void OnComputerScored()
     {
-        if (computerScore > 2 )
+        computerScore += 1;
+        SetComputerScore(computerScore);
+        if (computerScore == 3 )
         {
             //restart game if player loose 3 points
-            //NewGame();
+            NewGame();
         }
         else
         {
-
-            PlayerHealth[computerScore].SetActive(false);
+            NewRound();
+            PlayerHealth[computerScore-1].SetActive(false);
         }
-        computerScore += 1;
-        SetComputerScore(computerScore);
-        NewRound();
     }
 
     private void SetPlayerScore(int score)
