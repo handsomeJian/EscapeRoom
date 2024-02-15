@@ -1,4 +1,5 @@
-﻿using Unity.VisualScripting;
+﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UI;
@@ -15,6 +16,8 @@ public class PongGameManager : MonoBehaviour
 
     [SerializeField] private int playerScore = 0;
     [SerializeField] private int computerScore = 0;
+    [SerializeField] private AudioClip[] winSFX;
+    [SerializeField] private AudioSource audioSource;
 
     private void Start()
     {
@@ -72,7 +75,9 @@ public class PongGameManager : MonoBehaviour
         else
         {
             NewRound();
-            ComputerHealth[playerScore - 1].SetActive(false);
+            ComputerHealth[playerScore - 1].SetActive(false); 
+            audioSource.clip = winSFX[playerScore - 1];
+            audioSource.Play();
         }
         
     }
