@@ -5448,6 +5448,7 @@ MonoBehaviour:
   useDynamicBounce: 1
   maxBounceAngle: 75
   fixedX: 0
+  dist: 0
 --- !u!114 &1280904738920560613
 MonoBehaviour:
   m_ObjectHideFlags: 0
