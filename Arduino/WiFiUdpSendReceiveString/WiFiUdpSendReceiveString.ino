@@ -13,6 +13,7 @@
 
 
 #include <WiFiS3.h>
+#include "SharpIR.h"
 
 int status = WL_IDLE_STATUS;
 #define SECRET_SSID "newtoon"
@@ -29,7 +30,11 @@ char  ReplyBuffer[] = "acknowledged\n";       // a string to send back
 
 WiFiUDP Udp;
 
-int messageIndex = 0;
+#define IRPin A0
+#define model 1080
+
+int distance_cm;
+SharpIR mySensor = SharpIR(IRPin, model);
 
 void setup() {
   //Initialize serial and wait for port to open:
@@ -94,15 +99,18 @@ void loop() {
     Udp.write(ReplyBuffer);
     Udp.endPacket();
   }*/
-  
-  messageIndex++;
+
+  distance_cm = mySensor.distance();
+
+  // Print the measured distance to the serial monitor:
+
   char numBuffer[100];
-  String(messageIndex).toCharArray(numBuffer, sizeof(numBuffer));
+  String(distance_cm).toCharArray(numBuffer, sizeof(numBuffer));
   Serial.print(Udp.beginPacket("192.168.31.214", 8000));
   Udp.write(numBuffer);
   Serial.print(Udp.endPacket());
   Serial.print("Send data: ");
-  Serial.println(messageIndex);
+  Serial.println(distance_cm);
   //delay(1);
 }
 
