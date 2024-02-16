@@ -106,12 +106,13 @@ void loop() {
 
   char numBuffer[100];
   String(distance_cm).toCharArray(numBuffer, sizeof(numBuffer));
-  Serial.print(Udp.beginPacket("192.168.31.214", 8000));
+  //Serial.print(Udp.beginPacket("192.168.31.214", 8000));
+  Serial.print(Udp.beginPacket("192.168.31.159", 8000));
   Udp.write(numBuffer);
   Serial.print(Udp.endPacket());
   Serial.print("Send data: ");
   Serial.println(distance_cm);
-  //delay(1);
+  delay(0.1);
 }
 
 

@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/EscapeRoom/MainScene.unity
     guid: 2c1b9a172f45fd64a9e0e89e7addb969
-  - enabled: 1
+  - enabled: 0
     path: Assets/EscapeRoom/UDPTest.unity
     guid: c37839e4a77cf424fa319511b1d64fa5
   m_configObjects:

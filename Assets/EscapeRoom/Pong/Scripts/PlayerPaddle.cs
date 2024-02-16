@@ -9,6 +9,8 @@ public class PlayerPaddle : Paddle
     public int dist = 0;
     public int minDis = 5, maxDis = 60;
 
+    public UdpSocket socket;
+
     void Start()
     {
         
@@ -18,9 +20,11 @@ public class PlayerPaddle : Paddle
 
         //Vector3 currentPosition = transform.localPosition;
 
+        dist = socket.dist;
 
         var moveVec = MaxPos.position - MinPos.position;
         float w = (dist - minDis) * 1.0f / (maxDis - minDis);
+        w = Mathf.Clamp01(w);
         var newPos = MinPos.position + moveVec * w;
         transform.position = newPos;
 
