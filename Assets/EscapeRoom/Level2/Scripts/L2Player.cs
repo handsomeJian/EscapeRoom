@@ -9,6 +9,8 @@ public class L2Player : MonoBehaviour
     [SerializeField] private float jumpSpeed = 5.0f; // Initial jump speed
     [SerializeField] private float gravity = 9.8f; // Gravity strength
     [SerializeField] private float moveSpeed = 0.2f; // Speed of horizontal movement
+    [SerializeField] private float reducedSpeed = 0.5f; // Reduced speed when hit
+    [SerializeField] private float slowDuration = 2.0f; // Duration of slow effect
     private float verticalVelocity = 0.0f; // Current vertical speed
     private bool isGrounded = true;
     void Update()
@@ -92,6 +94,31 @@ public class L2Player : MonoBehaviour
             verticalVelocity = 0;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("collision");
+        if (other.gameObject.CompareTag("Obstacle")) 
+        {
+            Debug.Log("obstacle");
+            StartCoroutine(TemporarySpeedReduction());
+        }
+    }
+
+    IEnumerator TemporarySpeedReduction()
+    {
+        if(moveSpeed != reducedSpeed)
+        {
+            float originalSpeed = moveSpeed; // Store the original speed
+            moveSpeed = reducedSpeed; // Reduce the speed
+            
+            yield return new WaitForSeconds(slowDuration); // Wait for the duration
+
+            moveSpeed = originalSpeed; // Restore the original speed
+        }
+        
+    }
+
 }
 
 
