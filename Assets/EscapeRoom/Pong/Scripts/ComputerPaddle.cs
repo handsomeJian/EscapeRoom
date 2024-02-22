@@ -2,8 +2,9 @@
 
 public class ComputerPaddle : Paddle
 {
-    [SerializeField]
-    private Rigidbody ball;
+    [SerializeField] private Rigidbody ball;
+    [SerializeField] private GameObject l1JiaJian;
+    [SerializeField] private Animator level1Animation;
     public float fixedX = 0f; // The fixed local X position you want to maintain
     private void FixedUpdate()
     {
@@ -17,6 +18,7 @@ public class ComputerPaddle : Paddle
         //transform.localPosition = new Vector3(fixedX, currentPosition.y, currentPosition.z);
         if (ballLocalVel.x > 0f)
         {
+            level1Animation.SetBool("isMoving", true);
             // Move the paddle in the direction of the ball to track it
             if (ballLocalPos.y > localPos.y) {
                 rb.AddForce(transform.parent.TransformDirection(Vector3.up) * speed);
@@ -26,6 +28,7 @@ public class ComputerPaddle : Paddle
         }
         else
         {
+            level1Animation.SetBool("isMoving", false);
             // Move towards the center of the field and idle there until the
             // ball starts coming towards the paddle again
             /*
@@ -35,6 +38,9 @@ public class ComputerPaddle : Paddle
                 rb.AddForce(transform.parent.TransformDirection(Vector3.up) * speed);
             }*/
         }
+        var localJJ = l1JiaJian.transform.localPosition;
+        localJJ.y = this.transform.localPosition.y;
+        l1JiaJian.transform.localPosition = localJJ;
     }
 
 }
