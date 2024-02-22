@@ -725,11 +725,11 @@ MonoBehaviour:
   - {fileID: 1598931147}
   - {fileID: 348705137}
   currentTrackIndex: 1
-  jumpSpeed: 4
+  jumpSpeed: 4.5
   gravity: 9.8
   moveSpeed: 0.6
-  reducedSpeed: 0.1
-  slowDuration: 2
+  pushBackDuration: 2
+  isPushedBack: 0
 --- !u!65 &1038719620
 BoxCollider:
   m_ObjectHideFlags: 0

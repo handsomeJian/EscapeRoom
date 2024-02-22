@@ -9,8 +9,8 @@ public class L2Player : MonoBehaviour
     [SerializeField] private float jumpSpeed = 5.0f; // Initial jump speed
     [SerializeField] private float gravity = 9.8f; // Gravity strength
     [SerializeField] private float moveSpeed = 0.2f; // Speed of horizontal movement
-    [SerializeField] private float reducedSpeed = 0.5f; // Reduced speed when hit
-    [SerializeField] private float slowDuration = 2.0f; // Duration of slow effect
+    [SerializeField] private float pushBackDuration = 1f;
+    [SerializeField] private bool isPushedBack = false; 
     private float verticalVelocity = 0.0f; // Current vertical speed
     private bool isGrounded = true;
     void Update()
@@ -97,26 +97,21 @@ public class L2Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collision");
-        if (other.gameObject.CompareTag("Obstacle")) 
+        if (other.gameObject.CompareTag("Obstacle"))
         {
-            Debug.Log("obstacle");
-            StartCoroutine(TemporarySpeedReduction());
+            Debug.Log("collision");
+            // Move the player backward
+            transform.localPosition += new Vector3(moveSpeed * pushBackDuration, 0, 0); // Use pushBackDuration to determine the pushback distance
+            other.gameObject.SetActive(false);
+            StartCoroutine(ResumeForwardMovement());
         }
     }
 
-    IEnumerator TemporarySpeedReduction()
+    IEnumerator ResumeForwardMovement()
     {
-        if(moveSpeed != reducedSpeed)
-        {
-            float originalSpeed = moveSpeed; // Store the original speed
-            moveSpeed = reducedSpeed; // Reduce the speed
-            
-            yield return new WaitForSeconds(slowDuration); // Wait for the duration
-
-            moveSpeed = originalSpeed; // Restore the original speed
-        }
-        
+        isPushedBack = true; // Disable normal movement logic
+        yield return new WaitForSeconds(pushBackDuration); // Wait for the duration
+        isPushedBack = false; // Re-enable normal movement logic
     }
 
 }
