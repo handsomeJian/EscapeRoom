@@ -99,7 +99,7 @@ public class L2Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Obstacle"))
         {
-            Debug.Log("collision");
+            //Debug.Log("collision");
             // Move the player backward
             transform.localPosition += new Vector3(moveSpeed * pushBackDuration, 0, 0); // Use pushBackDuration to determine the pushback distance
             other.gameObject.SetActive(false);
