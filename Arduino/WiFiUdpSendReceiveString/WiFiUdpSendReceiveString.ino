@@ -15,9 +15,12 @@
 #include <WiFiS3.h>
 #include "SharpIR.h"
 
+#define DESTINATION_IP "192.168.0.209"
+#define DESTINATION_PORT 8000
+
 int status = WL_IDLE_STATUS;
-#define SECRET_SSID "newtoon"
-#define SECRET_PASS "83240959"
+#define SECRET_SSID "ETC_Test_Wi-Fi"
+#define SECRET_PASS "etcdemo123"
 ///////please enter your sensitive data in the Secret tab/arduino_secrets.h
 char ssid[] = SECRET_SSID;  // your network SSID (name)
 char pass[] = SECRET_PASS;  // your network password (use for WPA, or use as key for WEP)
@@ -73,6 +76,8 @@ void setup() {
   Udp.begin(localPort);*/
 }
 
+int count = 0;
+
 void loop() {
 
   // if there's data available, read a packet
@@ -100,7 +105,8 @@ void loop() {
     Udp.endPacket();
   }*/
 
-  distance_cm = mySensor.distance();
+  //distance_cm = mySensor.distance();
+  count ++;
 
   Serial.println(distance_cm);
   return;
@@ -108,9 +114,10 @@ void loop() {
   // Print the measured distance to the serial monitor:
 
   char numBuffer[100];
-  String(distance_cm).toCharArray(numBuffer, sizeof(numBuffer));
+  //String(distance_cm).toCharArray(numBuffer, sizeof(numBuffer));
+  String(count).toCharArray(numBuffer, sizeof(numBuffer));
   //Serial.print(Udp.beginPacket("192.168.31.214", 8000));
-  Serial.print(Udp.beginPacket("192.168.31.159", 8000));
+  Serial.print(Udp.beginPacket(DESTINATION_IP, DESTINATION_PORT));
   Udp.write(numBuffer);
   Serial.print(Udp.endPacket());
   Serial.print("Send data: ");
