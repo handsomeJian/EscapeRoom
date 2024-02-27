@@ -8,4 +8,12 @@ public class MoveObstacle : MonoBehaviour
     {
         transform.localPosition += Vector3.right * speed * Time.deltaTime;
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("End"))
+        {
+
+            Destroy(gameObject); // Destroy the obstacle
+        }
+    }
 }

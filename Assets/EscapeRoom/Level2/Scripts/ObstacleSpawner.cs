@@ -35,12 +35,5 @@ public class ObstacleSpawner : MonoBehaviour
         obstacle.SetActive(true);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("End"))
-        {
-            
-            Destroy(gameObject); // Destroy the obstacle
-        }
-    }
+
 }
