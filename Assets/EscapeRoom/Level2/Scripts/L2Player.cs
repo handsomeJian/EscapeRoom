@@ -66,7 +66,7 @@ public class L2Player : MonoBehaviour
     void MoveToTrack(int trackIndex)
     {
         Vector3 localPos = transform.localPosition;//localPosition
-        Vector3 newPosition = new Vector3(localPos.x, tracks[trackIndex].localPosition.y+0.5f, localPos.z);
+        Vector3 newPosition = new Vector3(localPos.x, localPos.y, tracks[trackIndex].localPosition.z - 0.7f);
         transform.localPosition = newPosition;
     }
 

@@ -8,7 +8,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     private float nextSpawnTime;
 
-    [SerializeField] private Material[] materials;
+    [SerializeField] private Sprite[] sprites;
     void Update()
     {
         if (Time.time >= nextSpawnTime)
@@ -21,14 +21,15 @@ public class ObstacleSpawner : MonoBehaviour
     void SpawnObstacle()
     {
         int spawnIndex = Random.Range(0, spawnPoints.Length);
-        var obstacle= Instantiate(obstaclePrefab, spawnPoints[spawnIndex].position, Quaternion.identity);
-        // Randomize material for each child
+        var obstacle = Instantiate(obstaclePrefab, spawnPoints[spawnIndex].position, Quaternion.identity);
+
+        // Randomize sprite for each child
         foreach (Transform child in obstacle.transform)
         {
-            var renderer = child.GetComponent<Renderer>();
-            if (renderer != null)
+            var spriteRenderer = child.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
             {
-                renderer.material = materials[Random.Range(0, materials.Length)];
+                spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
             }
         }
 
