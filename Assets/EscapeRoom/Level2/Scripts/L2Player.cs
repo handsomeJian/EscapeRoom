@@ -10,9 +10,10 @@ public class L2Player : MonoBehaviour
     [SerializeField] private float gravity = 9.8f; // Gravity strength
     [SerializeField] private float moveSpeed = 0.2f; // Speed of horizontal movement
     [SerializeField] private float pushBackDuration = 1f;
-    [SerializeField] private bool isPushedBack = false; 
+    [SerializeField] private bool isPushedBack = false;
+    [SerializeField] private Animator m_animator;
     private float verticalVelocity = 0.0f; // Current vertical speed
-    private bool isGrounded = true;
+    [SerializeField] private bool isGrounded = true;
     void Update()
     {
         MoveHorizontally();
@@ -74,9 +75,13 @@ public class L2Player : MonoBehaviour
     {
         isGrounded = false; // Object is now in the air
         verticalVelocity = jumpSpeed; // Set initial upward velocity
+        //animator 
+        //m_animator.SetTrigger("Jump");
+        //m_animator.SetBool("Grounded", isGrounded);
     }
     void Fall(int trackIndex)
     {
+        //m_animator.SetTrigger("Fall");
         Vector3 localPos = transform.localPosition;//localPosition
         //position before jump
         float yBefore = tracks[trackIndex].position.y+0.5f;
@@ -92,7 +97,12 @@ public class L2Player : MonoBehaviour
             transform.localPosition = new Vector3(localPos.x, yBefore, localPos.z);
             isGrounded = true;
             verticalVelocity = 0;
+            //animator
+           // m_animator.SetBool("Grounded", isGrounded);
+           // m_animator.SetInteger("AnimState", 0);
+            //m_animator.SetInteger("AnimState", 1);
         }
+        
     }
 
     private void OnTriggerEnter(Collider other)
