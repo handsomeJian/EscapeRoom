@@ -17,15 +17,15 @@ public class L2Player : MonoBehaviour
     void Update()
     {
         MoveHorizontally();
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (GetInput("Left"))
         {
             MoveUp();
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (GetInput("Right"))
         {
             MoveDown();
         }
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (GetInput("Jump") && isGrounded)
         {
             Jump();
             
@@ -124,6 +124,26 @@ public class L2Player : MonoBehaviour
         isPushedBack = false; // Re-enable normal movement logic
     }
 
+    Dictionary<string, bool> inputDict = new Dictionary<string, bool>();
+    bool GetInput(string inputName)
+    {
+        if (!inputDict.ContainsKey(inputName))
+        {
+            return false;
+        }
+        var inputVal = inputDict[inputName];
+        if (inputVal)
+        {
+            inputDict[inputName] = false;
+        }
+        return inputVal;
+    }
+
+    public void OnRecieveInputMessage(string inputName)
+    {
+        inputDict[inputName] = true;
+        print(inputDict);
+    }
 }
 
 

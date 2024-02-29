@@ -9,18 +9,15 @@ public class PlayerPaddle : Paddle
     public int dist = 0;
     public int minDis = 5, maxDis = 60;
 
-    public UdpSocket socket;
-
-    void Start()
+    public void OnRecieveDist(string distMessage)
     {
-        
+        dist = int.Parse(distMessage);
     }
+
     private void Update()
     {
 
         //Vector3 currentPosition = transform.localPosition;
-
-        dist = socket.dist;
 
         var moveVec = MaxPos.position - MinPos.position;
         float w = (dist - minDis) * 1.0f / (maxDis - minDis);

@@ -45,7 +45,7 @@ void setup() {
   while (!Serial) {
     ;  // wait for serial port to connect. Needed for native USB port only
   }
-  /*
+  
   // check for the WiFi module:
   if (WiFi.status() == WL_NO_MODULE) {
     Serial.println("Communication with WiFi module failed!");
@@ -73,7 +73,7 @@ void setup() {
 
   Serial.println("\nStarting connection to server...");
   // if you get a connection, report back via serial:
-  Udp.begin(localPort);*/
+  Udp.begin(localPort);
 }
 
 int count = 0;
@@ -105,24 +105,19 @@ void loop() {
     Udp.endPacket();
   }*/
 
-  //distance_cm = mySensor.distance();
-  count ++;
-
-  Serial.println(distance_cm);
-  return;
+  distance_cm = mySensor.distance();
 
   // Print the measured distance to the serial monitor:
 
-  char numBuffer[100];
-  //String(distance_cm).toCharArray(numBuffer, sizeof(numBuffer));
-  String(count).toCharArray(numBuffer, sizeof(numBuffer));
+  char numBuffer[10];
+  String(distance_cm).toCharArray(numBuffer, sizeof(numBuffer));
+  //String(count).toCharArray(numBuffer, sizeof(numBuffer));
   //Serial.print(Udp.beginPacket("192.168.31.214", 8000));
   Serial.print(Udp.beginPacket(DESTINATION_IP, DESTINATION_PORT));
   Udp.write(numBuffer);
   Serial.print(Udp.endPacket());
   Serial.print("Send data: ");
   Serial.println(distance_cm);
-  delay(0.1);
 }
 
 

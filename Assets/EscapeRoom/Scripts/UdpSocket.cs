@@ -6,14 +6,17 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class UdpSocket : MonoBehaviour
 {
     [HideInInspector] public bool isTxStarted = false;
 
-    [SerializeField] string IP = "192.168.31.214"; // local host
+    [SerializeField] string IP = "192.168.0.235"; // local host
     [SerializeField] int rxPort = 8000; // port to receive data from Python on
-    [SerializeField] int txPort = 8001; // port to send data to Python on
+    [SerializeField] int txPort = 8005; // port to send data to Python on
+
+    public UnityEvent<string> OnRecieveData;
 
     int i = 0; // DELETE THIS: Added to show sending data from Unity to Python via UDP
 
@@ -22,10 +25,8 @@ public class UdpSocket : MonoBehaviour
     IPEndPoint remoteEndPoint; 
     Thread receiveThread; // Receiving Thread
 
-    public Text debugText;
-
     string recievedText;
-    public int dist;
+    bool recieveMessage = false;
 
     IEnumerator SendDataCoroutine() // DELETE THIS: Added to show sending data from Unity to Python via UDP
     {
@@ -53,7 +54,7 @@ public class UdpSocket : MonoBehaviour
     void Awake()
     {
         // Create remote endpoint (to Matlab) 
-        remoteEndPoint = new IPEndPoint(IPAddress.Parse(IP), txPort);
+        //remoteEndPoint = new IPEndPoint(IPAddress.Parse(IP), txPort);
 
         // Create local client
         client = new UdpClient(rxPort);
@@ -81,9 +82,8 @@ public class UdpSocket : MonoBehaviour
                 IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
                 byte[] data = client.Receive(ref anyIP);
                 string text = Encoding.UTF8.GetString(data);
-                //print(">> " + text);
+                print(">> " + text);
                 ProcessInput(text);
-                recievedText = text;
             }
             catch (Exception err)
             {
@@ -94,13 +94,20 @@ public class UdpSocket : MonoBehaviour
 
     private void Update()
     {
-        dist = Int32.Parse(recievedText);
-        //debugText.text = recievedText;
-        //debugText.SetAllDirty();
+        if (recieveMessage)
+        {
+            recieveMessage = false;
+            OnRecieveData.Invoke(recievedText);
+        }
     }
 
     private void ProcessInput(string input)
     {
+        recievedText = input;
+        recieveMessage = true;
+
+        //OnRecieveData.Invoke(input);
+
         // PROCESS INPUT RECEIVED STRING HERE
 
         if (!isTxStarted) // First data arrived so tx started
