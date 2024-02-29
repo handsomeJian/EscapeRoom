@@ -15,7 +15,7 @@
 #include <WiFiS3.h>
 #include "SharpIR.h"
 
-#define DESTINATION_IP "192.168.0.209"
+#define DESTINATION_IP "192.168.0.218"
 #define DESTINATION_PORT 8000
 
 int status = WL_IDLE_STATUS;
@@ -106,6 +106,8 @@ void loop() {
   }*/
 
   distance_cm = mySensor.distance();
+  //Serial.println(distance_cm);
+  //return;
 
   // Print the measured distance to the serial monitor:
 

@@ -84,14 +84,14 @@ public class L2Player : MonoBehaviour
         //m_animator.SetTrigger("Fall");
         Vector3 localPos = transform.localPosition;//localPosition
         //position before jump
-        float yBefore = tracks[trackIndex].position.y+0.5f;
+        float yBefore = tracks[trackIndex].localPosition.y+0.5f;
         // Apply gravity
         verticalVelocity -= gravity * Time.deltaTime;
         // Move object vertically
         transform.localPosition += new Vector3(0, verticalVelocity * Time.deltaTime, 0);
 
         // Check if object has landed
-        if (transform.position.y <= yBefore) // Assuming ground is at y=0
+        if (transform.localPosition.y <= yBefore) // Assuming ground is at y=0
         {
             // Correct position to ground level and reset states
             transform.localPosition = new Vector3(localPos.x, yBefore, localPos.z);

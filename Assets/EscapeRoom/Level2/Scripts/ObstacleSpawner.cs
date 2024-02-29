@@ -21,7 +21,7 @@ public class ObstacleSpawner : MonoBehaviour
     void SpawnObstacle()
     {
         int spawnIndex = Random.Range(0, spawnPoints.Length);
-        var obstacle = Instantiate(obstaclePrefab, spawnPoints[spawnIndex].position, Quaternion.identity);
+        var obstacle = Instantiate(obstaclePrefab, spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
 
         // Randomize sprite for each child
         foreach (Transform child in obstacle.transform)

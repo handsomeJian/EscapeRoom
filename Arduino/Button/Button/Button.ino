@@ -1,7 +1,7 @@
 #include <WiFiS3.h>
 
 // WIFI
-#define DESTINATION_IP "192.168.0.235"
+#define DESTINATION_IP "192.168.0.218"
 #define DESTINATION_PORT 8002
 
 #define SECRET_SSID "ETC_Test_Wi-Fi"

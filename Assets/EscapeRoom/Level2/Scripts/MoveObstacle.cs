@@ -6,7 +6,7 @@ public class MoveObstacle : MonoBehaviour
 
     void Update()
     {
-        transform.localPosition += Vector3.right * speed * Time.deltaTime;
+        transform.localPosition += transform.right * speed * Time.deltaTime;
     }
     private void OnTriggerEnter(Collider other)
     {
