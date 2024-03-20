@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
@@ -5,6 +6,7 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] private GameObject obstaclePrefab; // Assign in inspector
     [SerializeField] private float spawnRate = 3.0f; // Time between spawns
     [SerializeField] private Transform[] spawnPoints; // Assign spawn points in inspector
+    [SerializeField] private Animator JJlevel2Anim;
 
     private float nextSpawnTime;
 
@@ -14,6 +16,7 @@ public class ObstacleSpawner : MonoBehaviour
         if (Time.time >= nextSpawnTime)
         {
             SpawnObstacle();
+            PlayAttackAnim();
             nextSpawnTime = Time.time + 1f / spawnRate;
         }
     }
@@ -35,6 +38,14 @@ public class ObstacleSpawner : MonoBehaviour
 
         obstacle.SetActive(true);
     }
-
-
+    void PlayAttackAnim()
+    {
+        JJlevel2Anim.SetBool("isAttack", true);
+        StartCoroutine(PlayIdle(1f));
+    }
+    IEnumerator PlayIdle(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        JJlevel2Anim.SetBool("isAttack", false);
+    }
 }
