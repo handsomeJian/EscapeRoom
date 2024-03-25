@@ -52,14 +52,14 @@ public class ObstacleSpawner : MonoBehaviour
         }
 
         ;
-        JJlevel2Anim.SetBool("isAttack", true);
-        //JJlevel2Anim.SetTrigger("Attack");
+        //JJlevel2Anim.SetBool("isAttack", true);
+        JJlevel2Anim.SetTrigger("isAttacking");
         StartCoroutine(PlayIdle(animationTime, randomIndex));
     }
     IEnumerator PlayIdle(float delay, int randomIndex)
     {
         yield return new WaitForSeconds(delay);
-        JJlevel2Anim.SetBool("isAttack", false);
+        //JJlevel2Anim.SetBool("isAttack", false);
         //JJlevel2Anim.SetTrigger("Idle");
         yield return new WaitForSeconds(1f);
         SpawnObstacle(randomIndex);
