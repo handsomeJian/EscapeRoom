@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class L2Player : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class L2Player : MonoBehaviour
     [SerializeField] private bool isPushedBack = false;
     [SerializeField] private Animator m_animator;
     private float verticalVelocity = 0.0f; // Current vertical speed
-    [SerializeField] private bool isGrounded = true;
+    [SerializeField] private bool isGrounded = true, isWin = false;
+    [SerializeField] private GameObject JJ, Obstacles;
+    [SerializeField] float JJSpeed = 2f, JJspinSpeed = 10f,JJshrinkRate = 0.99f;
     void Update()
     {
         MoveHorizontally();
@@ -33,6 +36,10 @@ public class L2Player : MonoBehaviour
         if (!isGrounded)
         {
             Fall(currentTrackIndex);
+        }
+        if (isWin)
+        {
+            TransformJJ();
         }
     }
 
@@ -115,6 +122,10 @@ public class L2Player : MonoBehaviour
             other.gameObject.SetActive(false);
             StartCoroutine(ResumeForwardMovement());
         }
+        else if (other.gameObject.CompareTag("JJ"))
+        {
+            winL2();
+        }
     }
 
     IEnumerator ResumeForwardMovement()
@@ -143,6 +154,37 @@ public class L2Player : MonoBehaviour
     {
         inputDict[inputName] = true;
         print(inputDict);
+    }
+    public void winL2()
+    {
+        Debug.Log("collide");
+        moveSpeed = 0;
+        Obstacles.SetActive(false);
+        isWin = true;
+        DestroyAllObstacles();
+    }
+
+    private void TransformJJ()
+    {
+        // Move the object away along the Z-axis
+        JJ.transform.Translate(new Vector3(1,1,0) * JJSpeed * Time.deltaTime);
+
+        // Spin the object around the Y-axis
+        JJ.transform.Rotate(Vector3.forward, JJspinSpeed * Time.deltaTime);
+
+        // Shrink the object uniformly
+        JJ.transform.localScale *= JJshrinkRate;
+    }
+    public void DestroyAllObstacles()
+    {
+        // Find all game objects with the tag "Obstacle"
+        GameObject[] obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
+
+        // Loop through the array and destroy each object
+        foreach (GameObject obstacle in obstacles)
+        {
+            Destroy(obstacle);
+        }
     }
 }
 
