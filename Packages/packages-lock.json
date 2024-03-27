@@ -7,7 +7,7 @@
       "dependencies": {
         "com.unity.xr.oculus": "4.2.0-exp-env-depth.2"
       },
-      "hash": "f42a6275f117cacba1863cdd11fd349ebf7ee6c3"
+      "hash": "0596292096cb962a0e856ba6bd1ba6146b8f9625"
     },
     "com.meta.xr.mrutilitykit": {
       "version": "60.0.0",
