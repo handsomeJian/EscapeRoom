@@ -26,6 +26,7 @@ public class ObstacleSpawner : MonoBehaviour
     {
         int spawnIndex = Random.Range(0, spawnPoints.Length);
         var obstacle = Instantiate(obstaclePrefab, spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
+        obstacle.transform.localScale *= transform.parent.localScale.x;
 
         // Randomize sprite for each child
         foreach (Transform child in obstacle.transform)
