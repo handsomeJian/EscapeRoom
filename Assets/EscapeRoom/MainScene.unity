@@ -3911,7 +3911,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8986073362625160808, guid: fb5832be3bdef314abe29593f196a2be, type: 3}
       propertyPath: ObjectName
-      value: TSTCat
+      value: L2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
