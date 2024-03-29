@@ -35,7 +35,10 @@ public class LevelObjectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (OVRInput.GetDown(OVRInput.RawButton.Y))
+        {
+            PlayerPrefs.DeleteAll();
+        }
     }
 
     public void LoadLevelObjects()
@@ -138,6 +141,7 @@ public class LevelObjectManager : MonoBehaviour
     {
         var levelObjComp = anchor.GetComponent<LevelObjectComponent>();
         var keyName = "ObjName:" + levelObjComp.name;
+        Debug.Log("Save Anchor: " + keyName);
 
         PlayerPrefs.SetString(keyName, anchor.Uuid.ToString());
     }
