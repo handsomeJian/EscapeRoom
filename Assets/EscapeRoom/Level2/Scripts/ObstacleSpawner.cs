@@ -20,6 +20,12 @@ public class ObstacleSpawner : MonoBehaviour
             PlayAttackAnim();
             nextSpawnTime = Time.time + 1f / spawnRate;
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            JJlevel2Anim.SetTrigger("takeDamage");
+            Debug.Log("taking damage in anim");
+        }
     }
 
     void SpawnObstacle( int randomIndex)
