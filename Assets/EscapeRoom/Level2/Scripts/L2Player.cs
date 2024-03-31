@@ -14,7 +14,8 @@ public class L2Player : MonoBehaviour
     [SerializeField] private bool isPushedBack = false;
     [SerializeField] private Animator m_animator;
     private float verticalVelocity = 0.0f; // Current vertical speed
-    [SerializeField] private bool isGrounded = true, isWin = false;
+    [SerializeField] private bool isGrounded = true;
+    public bool isWin = false;
     [SerializeField] private GameObject JJ, Obstacles;
     [SerializeField] float JJSpeed = 2f, JJspinSpeed = 10f,JJshrinkRate = 0.99f;
     void Update()

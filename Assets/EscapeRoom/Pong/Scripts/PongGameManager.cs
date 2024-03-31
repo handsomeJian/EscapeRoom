@@ -14,7 +14,7 @@ public class PongGameManager : MonoBehaviour
     [SerializeField] private GameObject[] PlayerHealth, ComputerHealth;
     [SerializeField] private GameObject FinalScore;
 
-    [SerializeField] private int playerScore = 0;
+    [SerializeField] public int playerScore = 0;
     [SerializeField] private int computerScore = 0;
     [SerializeField] private AudioClip[] winSFX;
     [SerializeField] private AudioSource audioSource;
