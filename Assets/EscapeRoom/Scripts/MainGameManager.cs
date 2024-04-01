@@ -9,25 +9,30 @@ public class MainGameManager : MonoBehaviour
     [SerializeField] private PongGameManager L1Script;
     [SerializeField] private L2Player L2Scrpit;
     [SerializeField] private GameObject L1Game,L1Arrow, L2Game, L2Arrow, L3Game;
+    private bool level1Won = false; 
+    private bool level2Won = false;
 
     void Start()
     {
-
+        //L2Scrpit.isWin.
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        if (L1Script.playerScore == 3)
+
+        if (L1Script.playerScore == 3 && !level1Won)
         {
             StartCoroutine(winLevel1());
+            level1Won = true; // Prevent coroutine from being called again
         }
-        if (L2Scrpit.isWin)
+        if (L2Scrpit.isWin && !level2Won)
         {
             StartCoroutine(winLevel2());
+            level2Won = true; // Prevent coroutine from being called again
         }
     }
+
     IEnumerator winLevel1()
     {
         yield return new WaitForSeconds(3f);
