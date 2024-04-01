@@ -541,7 +541,7 @@ MonoBehaviour:
   - {fileID: 3504872983274177858}
   - {fileID: 1132581636434344873}
   currentTrackIndex: 1
-  jumpSpeed: 0.5
+  jumpSpeed: 5
   gravity: 8
   moveSpeed: 0.1
   pushBackDuration: 3
