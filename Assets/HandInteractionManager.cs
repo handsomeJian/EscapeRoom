@@ -23,7 +23,6 @@ public class HandInteractionManager : MonoBehaviour
     void Update()
     {
         Vector3 pos = HandObject.transform.position;
-        Debug.Log(pos);
         caseRenderer.material.SetVector("_HandPos", new Vector4(pos.x, pos.y, pos.z, 0));
     }
 }
