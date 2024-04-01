@@ -8,6 +8,10 @@ public class GameProcessManager : MonoBehaviour
     public GameObject SceneMesh;
     private bool sceneMeshState = true;
 
+    public GameObject[] AnchorIndicatorList;
+
+    private bool anchorState = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +21,9 @@ public class GameProcessManager : MonoBehaviour
             return;
         }
         instance = this;
+
+        anchorState = false;
+        UpdateAnchorIndicatorState(false);
     }
 
     // Update is called once per frame
@@ -26,6 +33,19 @@ public class GameProcessManager : MonoBehaviour
         {
             sceneMeshState = !sceneMeshState;
             TriggerSceneMesh(sceneMeshState);
+        }
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
+        {
+            anchorState = !anchorState;
+            UpdateAnchorIndicatorState(anchorState);
+        }
+    }
+
+    void UpdateAnchorIndicatorState(bool state)
+    {
+        foreach (var indicator in AnchorIndicatorList)
+        {
+            indicator.SetActive(state);
         }
     }
 
