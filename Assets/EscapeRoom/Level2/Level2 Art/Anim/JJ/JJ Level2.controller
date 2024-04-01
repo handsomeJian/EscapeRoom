@@ -127,7 +127,7 @@ AnimatorController:
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 0}
   - m_Name: takeDamage
     m_Type: 9
@@ -170,7 +170,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: ba010b48c88fd0746ae943011cce2090, type: 2}
+  m_Motion: {fileID: 7400000, guid: f10c6f4ec6c9cd443a5486f59798e2b9, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
