@@ -121,6 +121,7 @@ public class L2Player : MonoBehaviour
             // Move the player backward
             transform.localPosition += new Vector3(moveSpeed * pushBackDuration, 0, 0); // Use pushBackDuration to determine the pushback distance
             other.gameObject.SetActive(false);
+            m_animator.SetTrigger("damaged");
             StartCoroutine(ResumeForwardMovement());
         }
         else if (other.gameObject.CompareTag("JJ"))
