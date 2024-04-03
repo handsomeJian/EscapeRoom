@@ -7,8 +7,10 @@ public class L3GameManager : MonoBehaviour
 {
     [SerializeField] private Transform[] positions; // An array of positions to teleport to
     [SerializeField] private int currentPositionIndex = 0; // Keep track of the current position index
-    [SerializeField] private GameObject L3JJ;
+    [SerializeField] private GameObject L3JJ, RightHandAnchor;
     [SerializeField] private GameObject teleportVFX;
+    private float dist;
+    [SerializeField] private float distThreadhold = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,9 +20,10 @@ public class L3GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        dist = Vector3.Distance(L3JJ.transform.position, RightHandAnchor.transform.position);
+        if (dist < distThreadhold)//Input.GetKeyDown("space")
         {
-            Debug.Log("space key was pressed");
+            //Debug.Log("space key was pressed");
             //Teleport();
             StartCoroutine(TeleportAfterVFX());
         }
@@ -36,8 +39,7 @@ public class L3GameManager : MonoBehaviour
 
     IEnumerator TeleportAfterVFX()
     {
-        // Exit if no positions are set
-        if (positions.Length == 0) yield break;
+        yield return new WaitForSeconds(1.5f);
         
         // Play the teleport VFX
         teleportVFX.SetActive(true);
