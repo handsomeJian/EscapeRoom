@@ -34,7 +34,7 @@ public class GameProcessManager : MonoBehaviour
             sceneMeshState = !sceneMeshState;
             TriggerSceneMesh(sceneMeshState);
         }
-        if (OVRInput.GetDown(OVRInput.RawButton.A))
+        if (OVRInput.GetDown(OVRInput.RawButton.B))
         {
             anchorState = !anchorState;
             UpdateAnchorIndicatorState(anchorState);

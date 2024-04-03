@@ -48,6 +48,9 @@ Shader "Unlit/WireframeDepthShader" {
         UNITY_SETUP_INSTANCE_ID(v);
         UNITY_INITIALIZE_OUTPUT(v2f, o);
         UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+
+		
+
         o.vertex = UnityObjectToClipPos(v.vertex);
         o.vertexView = UnityObjectToViewPos(v.vertex);
         o.color = v.color;
@@ -56,6 +59,7 @@ Shader "Unlit/WireframeDepthShader" {
         return o;
       }
 
+	  
 	  [maxvertexcount(3)]
 	  void geom(triangle v2f IN[3], inout TriangleStream<v2f> triStream)
 	  {
@@ -73,6 +77,7 @@ Shader "Unlit/WireframeDepthShader" {
 		  o.barycentric = float3(0.0, 0.0, 1.0);
 		  triStream.Append(o);
 	  }
+	  
 
       half4 frag(v2f i) : SV_Target
       {

@@ -22,6 +22,7 @@ using System;
 using System.Threading.Tasks;
 using Unity.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// A smaller helper class for Custom Scene Manager samples.
@@ -101,6 +102,131 @@ public class SceneManagerHelper
         }
     }
 
+    private static Color[] _COLORS = new Color[]
+        {
+            Color.red,
+            Color.green,
+            Color.blue,
+        };
+
+    public Color[] CreateColors(NativeArray<Vector3> vs, NativeArray<int> ts)
+    {
+        int vertexNum = vs.Length;
+        int[] vertexLables = new int[vertexNum];
+
+        List<int[]> triangleList = new List<int[]>();
+        for (int i = 0; i < ts.Length; i += 3)
+        {
+            List<int> tmpList = new List<int> { ts[i], ts[i + 1], ts[i + 2] };
+            tmpList.Sort();
+            triangleList.Add(tmpList.ToArray());
+        }
+        triangleList.Sort((int[] t1, int[] t2) =>
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (t1[i] < t2[i])
+                    return -1;
+                else if (t1[i] > t2[i])
+                    return 1;
+            }
+            return 0;
+        });
+
+        foreach (var triangle in triangleList)
+        {
+            List<int> lable = new List<int> { 1, 2, 3 };
+            foreach (var index in triangle)
+            {
+                if (lable.Contains(vertexLables[index]))
+                    lable.Remove(vertexLables[index]);
+            }
+            foreach (var index in triangle)
+            {
+                if (vertexLables[index] != 0)
+                    continue;
+
+                if (lable.Count == 0)
+                {
+                    Debug.Log("Color Mesh Error!");
+                    continue;
+                }
+
+                vertexLables[index] = lable[0];
+                lable.RemoveAt(0);
+            }
+        }
+
+        Color[] vertexColor = new Color[vertexNum];
+        for (int i = 0; i < vertexNum; i++)
+        {
+            vertexColor[i] = vertexLables[i] > 0 ? _COLORS[vertexLables[i] - 1] : _COLORS[0];
+        }
+        return vertexColor;
+    }
+
+    private Color[] _SortedColoring(Mesh mesh)
+    {
+        int n = mesh.vertexCount;
+        int[] labels = new int[n];
+
+        List<int[]> triangles = _GetSortedTriangles(mesh.triangles);
+        triangles.Sort((int[] t1, int[] t2) =>
+        {
+            int i = 0;
+            while (i < t1.Length && i < t2.Length)
+            {
+                if (t1[i] < t2[i]) return -1;
+                if (t1[i] > t2[i]) return 1;
+                i += 1;
+            }
+            if (t1.Length < t2.Length) return -1;
+            if (t1.Length > t2.Length) return 1;
+            return 0;
+        });
+
+        foreach (int[] triangle in triangles)
+        {
+            List<int> availableLabels = new List<int>() { 1, 2, 3 };
+            foreach (int vertexIndex in triangle)
+            {
+                if (availableLabels.Contains(labels[vertexIndex]))
+                    availableLabels.Remove(labels[vertexIndex]);
+            }
+            foreach (int vertexIndex in triangle)
+            {
+                if (labels[vertexIndex] == 0)
+                {
+                    if (availableLabels.Count == 0)
+                    {
+                        Debug.LogError("Could not find color");
+                        return null;
+                    }
+                    labels[vertexIndex] = availableLabels[0];
+                    availableLabels.RemoveAt(0);
+                }
+            }
+        }
+
+        Color[] colors = new Color[n];
+        for (int i = 0; i < n; i++)
+            colors[i] = labels[i] > 0 ? _COLORS[labels[i] - 1] : _COLORS[0];
+
+        return colors;
+    }
+
+    private List<int[]> _GetSortedTriangles(int[] triangles)
+    {
+        List<int[]> result = new List<int[]>();
+        for (int i = 0; i < triangles.Length; i += 3)
+        {
+            List<int> t = new List<int> { triangles[i], triangles[i + 1], triangles[i + 2] };
+            t.Sort();
+            result.Add(t.ToArray());
+        }
+        return result;
+    }
+
     public void CreateMesh(OVRTriangleMesh mesh)
     {
         if (!mesh.TryGetCounts(out var vcount, out var tcount)) return;
@@ -109,17 +235,41 @@ public class SceneManagerHelper
         if (!mesh.TryGetMesh(vs, ts)) return;
 
         var trimesh = new Mesh();
+        /*
         trimesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
         trimesh.SetVertices(vs);
         trimesh.SetTriangles(ts.ToArray(), 0);
+        */
+        //trimesh.SetColors(CreateColors(vs, ts));
+        //trimesh.SetColors(_SortedColoring(trimesh));
+
+        var c = new Color[ts.Length];
+        var v = new Vector3[ts.Length];
+        var idx = new int[ts.Length];
+        for (var i = 0; i < ts.Length; i++)
+        {
+            c[i] = new Color(
+                i % 3 == 0 ? 1.0f : 0.0f,
+                i % 3 == 1 ? 1.0f : 0.0f,
+                i % 3 == 2 ? 1.0f : 0.0f);
+            v[i] = vs[ts[i]];
+            idx[i] = i;
+        }
+
+        trimesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+        trimesh.SetVertices(v);
+        trimesh.SetColors(c);
+        trimesh.SetIndices(idx, MeshTopology.Triangles, 0, true, 0);
+        trimesh.RecalculateNormals();
 
         var meshGO = GameObject.CreatePrimitive(PrimitiveType.Quad);
         meshGO.name = "Mesh";
         meshGO.transform.SetParent(AnchorGameObject.transform, false);
         meshGO.GetComponent<MeshFilter>().sharedMesh = trimesh;
-        meshGO.GetComponent<MeshCollider>().sharedMesh = trimesh;
-        meshGO.GetComponent<MeshRenderer>().material.SetColor(
-            "_Color", UnityEngine.Random.ColorHSV());
+        meshGO.GetComponent<MeshCollider>().enabled = false;
+        //meshGO.GetComponent<MeshCollider>().sharedMesh = trimesh;
+        //meshGO.GetComponent<MeshRenderer>().material.SetColor(
+            //"_Color", UnityEngine.Random.ColorHSV());
     }
 
     public void UpdateMesh(OVRTriangleMesh mesh)
