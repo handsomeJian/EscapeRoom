@@ -21,6 +21,12 @@ public class MainGameManager : MonoBehaviour
     void Update()
     {
 
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            StartCoroutine(winLevel1());
+            level1Won = true; // Prevent coroutine from being called again
+        }
+
         if (L1Script.playerScore == 3 && !level1Won)
         {
             StartCoroutine(winLevel1());

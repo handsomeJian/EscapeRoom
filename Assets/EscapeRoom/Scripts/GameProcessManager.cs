@@ -23,7 +23,7 @@ public class GameProcessManager : MonoBehaviour
         instance = this;
 
         anchorState = true;
-        //UpdateAnchorIndicatorState(false);
+        UpdateAnchorIndicatorState(anchorState);
     }
 
     // Update is called once per frame
