@@ -12,7 +12,7 @@ Shader "Unlit/WireframeDepthShader" {
       CGPROGRAM
       #include "UnityCG.cginc"
       #pragma vertex vert
-	  #pragma geometry geom
+	  //#pragma geometry geom
       #pragma fragment frag
 
       #include "Packages/com.meta.xr.depthapi/Runtime/BiRP/EnvironmentOcclusionBiRP.cginc"
@@ -60,7 +60,7 @@ Shader "Unlit/WireframeDepthShader" {
       }
 
 	  
-	  [maxvertexcount(3)]
+	  /*[maxvertexcount(3)]
 	  void geom(triangle v2f IN[3], inout TriangleStream<v2f> triStream)
 	  {
 		  v2f o;
@@ -76,15 +76,15 @@ Shader "Unlit/WireframeDepthShader" {
 		  //o.pos = IN[2].vertex;
 		  o.barycentric = float3(0.0, 0.0, 1.0);
 		  triStream.Append(o);
-	  }
+	  }*/
 	  
 
       half4 frag(v2f i) : SV_Target
       {
         UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
         // on edge, one or the coordinates is 0
-        //float closest = min(i.color.x, min(i.color.y, i.color.z));
-		float closest = min(i.barycentric.x, min(i.barycentric.y, i.barycentric.z));
+        float closest = min(i.color.x, min(i.color.y, i.color.z));
+		//float closest = min(i.barycentric.x, min(i.barycentric.y, i.barycentric.z));
 
         // use distance to make far away edges visible
         float distance = length(i.vertexView) * _DistanceMultipler * _LineWidth;
