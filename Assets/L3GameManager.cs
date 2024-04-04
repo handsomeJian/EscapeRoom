@@ -11,9 +11,15 @@ public class L3GameManager : MonoBehaviour
     [SerializeField] private GameObject teleportVFX;
     private float dist;
     [SerializeField] private float distThreadhold = 0.5f;
+    private bool[] hasTeleported;
     // Start is called before the first frame update
     void Start()
     {
+        hasTeleported = new bool[positions.Length];
+            for (int i = 0; i < hasTeleported.Length; i++)
+            {
+                hasTeleported[i] = false;
+            }
 
     }
 
@@ -21,25 +27,20 @@ public class L3GameManager : MonoBehaviour
     void Update()
     {
         dist = Vector3.Distance(L3JJ.transform.position, RightHandAnchor.transform.position);
-        if (dist < distThreadhold)//Input.GetKeyDown("space")
+        if (dist < distThreadhold && !hasTeleported[currentPositionIndex])//||Input.GetKeyDown("space"
         {
             //Debug.Log("space key was pressed");
             //Teleport();
             StartCoroutine(TeleportAfterVFX());
+            hasTeleported[currentPositionIndex] = true;
+            // Initialize the hasTeleported array with the same length as positions and set all to false
+            
         }
-    }
-    public void Teleport()
-    {
-        if (positions.Length == 0) return; // Exit if no positions are set
-
-        // Move to the next position in the array, looping back to the start if necessary
-        currentPositionIndex = (currentPositionIndex + 1) % positions.Length;
-        L3JJ.transform.position = positions[currentPositionIndex].position;// + new Vector3(0,0.2f,0);
     }
 
     IEnumerator TeleportAfterVFX()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         
         // Play the teleport VFX
         teleportVFX.SetActive(true);
@@ -55,7 +56,7 @@ public class L3GameManager : MonoBehaviour
         else
         { // Move to the next position in the array, looping back to the start if necessary
             currentPositionIndex = (currentPositionIndex + 1) % positions.Length;
-            L3JJ.transform.position = positions[currentPositionIndex].position + new Vector3(0, 0.6f, 0);
+            L3JJ.transform.position = positions[currentPositionIndex].position;// new Vector3(0, 0.6f, 0)
            //yield return new WaitForSeconds(.2f);
             teleportVFX.SetActive(false);
 
