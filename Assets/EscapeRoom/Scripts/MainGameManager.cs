@@ -45,11 +45,13 @@ public class MainGameManager : MonoBehaviour
         L1Game.SetActive(false);
         L1Arrow.SetActive(true);
         L2Game.SetActive(true);
+        GameProcessManager.instance.TriggerSceneMesh(false);
     }
     IEnumerator winLevel2()
     {
         yield return new WaitForSeconds(6f);
         L2Game.SetActive(false);
+        L1Arrow.SetActive(false);
         L2Arrow.SetActive(true);
         L3Game.SetActive(true);
     }
