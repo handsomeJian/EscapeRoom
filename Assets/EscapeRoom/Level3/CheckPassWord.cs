@@ -11,6 +11,8 @@ public class CheckPassWord : MonoBehaviour
     [SerializeField] private Button escapeButton, closeBotton; // Assign your Button in the inspector
     [SerializeField] private string correctString = "handsomeJJ";
     [SerializeField] private GameObject warning;
+
+    public UdpSocketSender sender;
     void Start()
     {
         escapeButton.onClick.AddListener(CheckInput);
@@ -27,6 +29,7 @@ public class CheckPassWord : MonoBehaviour
         if (userInput.Equals(correctString))
         {
             Debug.Log("Input matches the specific string!");
+            sender.SendMessage("Pass");
             
         }
         else
@@ -34,7 +37,7 @@ public class CheckPassWord : MonoBehaviour
             Debug.Log("Input does not match.");
             userInputField.text = "";
             warning.SetActive(true);
-
+            sender.SendMessage("Failed");
         }
     }
     void CloseWarning()
