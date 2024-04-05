@@ -18,6 +18,7 @@ public class L2Player : MonoBehaviour
     public bool isWin = false;
     [SerializeField] private GameObject JJ, Obstacles;
     [SerializeField] float JJSpeed = 2f, JJspinSpeed = 10f,JJshrinkRate = 0.99f;
+    [SerializeField] private AudioSource level2Win, playerHurt;
     void Update()
     {
         MoveHorizontally();
@@ -41,6 +42,7 @@ public class L2Player : MonoBehaviour
         if (isWin)
         {
             TransformJJ();
+            level2Win.Play();
         }
     }
 
@@ -122,6 +124,7 @@ public class L2Player : MonoBehaviour
             transform.localPosition += new Vector3(moveSpeed * pushBackDuration, 0, 0); // Use pushBackDuration to determine the pushback distance
             other.gameObject.SetActive(false);
             m_animator.SetTrigger("damaged");
+            playerHurt.Play();
             StartCoroutine(ResumeForwardMovement());
         }
         else if (other.gameObject.CompareTag("JJ"))

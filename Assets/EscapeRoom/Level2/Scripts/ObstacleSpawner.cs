@@ -23,7 +23,7 @@ public class ObstacleSpawner : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            JJlevel2Anim.SetTrigger("takeDamage");
+            //JJlevel2Anim.SetTrigger("takeDamage");
             Debug.Log("taking damage in anim");
         }
     }
