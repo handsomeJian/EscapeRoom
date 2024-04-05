@@ -8,6 +8,7 @@ public class L2Attack : MonoBehaviour
     [SerializeField] private Transform target; // Assign the target location in the inspector
     [SerializeField] private float height = 10.0f, duration = 2.0f; // Speed at which the object moves to the target
     [SerializeField] private Animator JJlevel2Anim;
+    [SerializeField] private AudioSource JJHurt;
     private bool isCollided = false;
     private float timer;
     private Vector3 startPosition;
@@ -69,5 +70,6 @@ public class L2Attack : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         JJlevel2Anim.SetTrigger("takeDamage");
+        JJHurt.Play();
     }
 }
