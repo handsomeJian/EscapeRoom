@@ -12,6 +12,8 @@ public class MainGameManager : MonoBehaviour
     private bool level1Won = false; 
     private bool level2Won = false;
 
+    public GameObject[] VisualEffects;
+
     void Start()
     {
         //L2Scrpit.isWin.
