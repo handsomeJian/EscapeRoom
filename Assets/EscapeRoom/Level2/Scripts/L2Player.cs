@@ -18,7 +18,7 @@ public class L2Player : MonoBehaviour
     public bool isWin = false;
     [SerializeField] private GameObject JJ, Obstacles;
     [SerializeField] float JJSpeed = 2f, JJspinSpeed = 10f,JJshrinkRate = 0.99f;
-    [SerializeField] private AudioSource level2Win, playerHurt;
+    [SerializeField] private AudioSource level2Win, playerHurt, jumpAudio;
     void Update()
     {
         MoveHorizontally();
@@ -85,6 +85,7 @@ public class L2Player : MonoBehaviour
     {
         isGrounded = false; // Object is now in the air
         verticalVelocity = jumpSpeed; // Set initial upward velocity
+        jumpAudio.Play();
         //animator 
         //m_animator.SetTrigger("Jump");
         //m_animator.SetBool("Grounded", isGrounded);

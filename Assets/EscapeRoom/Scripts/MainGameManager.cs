@@ -100,5 +100,14 @@ public class MainGameManager : MonoBehaviour
         yield return new WaitForSeconds(audioSource.clip.length);
         
     }
+    IEnumerator winLevel3()
+    {
+        audioSource.clip = audioClips[8];
+        audioSource.Play();
+        yield return new WaitForSeconds(audioSource.clip.length);
+
+        L3Game.SetActive(false);
+
+    }
 
 }

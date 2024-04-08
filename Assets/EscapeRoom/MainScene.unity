@@ -5074,6 +5074,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f8a5836bfa8c5484eb2718558120c2ab, type: 3}
   - {fileID: 8300000, guid: 9e33864b70cb883419e6d74970b79291, type: 3}
   - {fileID: 8300000, guid: 46ccc472b0c8d924b8d4e193960c12fc, type: 3}
+  - {fileID: 8300000, guid: 2daadeab617aecb4b86d88d268d8ed14, type: 3}
   VisualEffects:
   - {fileID: 1600632039}
   - {fileID: 380774961}

@@ -12,6 +12,8 @@ public class L3GameManager : MonoBehaviour
     private float dist;
     [SerializeField] private float distThreadhold = 0.5f;
     private bool[] hasTeleported;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private List<AudioClip> audioClips;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,14 +43,18 @@ public class L3GameManager : MonoBehaviour
     IEnumerator TeleportAfterVFX()
     {
         yield return new WaitForSeconds(1f);
+        audioSource.clip = audioClips[currentPositionIndex];
+        audioSource.Play();
         
+
         // Play the teleport VFX
         teleportVFX.SetActive(true);
         //teleportVFX.GetComponent<VisualEffect>().Play();
 
 
         // Wait for the VFX to finish
-        yield return new WaitForSeconds(.8f);
+        yield return new WaitForSeconds(audioSource.clip.length);
+        //yield return new WaitForSeconds(.8f);
         if (currentPositionIndex == 2)
         {
             L3JJ.SetActive(false);
