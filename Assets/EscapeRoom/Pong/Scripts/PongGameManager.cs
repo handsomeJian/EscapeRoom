@@ -16,8 +16,8 @@ public class PongGameManager : MonoBehaviour
 
     [SerializeField] public int playerScore = 0;
     [SerializeField] private int computerScore = 0;
-    [SerializeField] private AudioClip[] winSFX;
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] winSFX, L2FightSFX;
+    [SerializeField] private AudioSource audioSource,computerAudioSource;
 
     private void Start()
     {
@@ -95,6 +95,7 @@ public class PongGameManager : MonoBehaviour
         {
             NewRound();
             PlayerHealth[computerScore-1].SetActive(false);
+            computerAudioSource.clip = L2FightSFX[computerScore-1];
         }
     }
 
