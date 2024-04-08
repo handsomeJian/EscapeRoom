@@ -11,12 +11,17 @@ public class MainGameManager : MonoBehaviour
     [SerializeField] private GameObject L1Game,L1Arrow, L2Game, L2Arrow, L3Game;
     private bool level1Won = false; 
     private bool level2Won = false;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private List<AudioClip> audioClips;
+
+
 
     public GameObject[] VisualEffects;
 
     void Start()
     {
         //L2Scrpit.isWin.
+        StartCoroutine(StartLevel1());
     }
 
     // Update is called once per frame
@@ -40,21 +45,43 @@ public class MainGameManager : MonoBehaviour
             level2Won = true; // Prevent coroutine from being called again
         }
     }
-
-    IEnumerator winLevel1()
+    IEnumerator StartLevel1()
     {
         yield return new WaitForSeconds(3f);
+        audioSource.clip = audioClips[0];
+        audioSource.Play();
+        //yield return new WaitForSeconds(audioSource.clip.length);
+        L1Game.SetActive(true);
+
+    }
+    IEnumerator winLevel1()
+    {
+        audioSource.clip = audioClips[1];
+        audioSource.Play();
+        yield return new WaitForSeconds(audioSource.clip.length);
         L1Game.SetActive(false);
+        yield return new WaitForSeconds(2f);
         L1Arrow.SetActive(true);
         L2Game.SetActive(true);
+        //play audio
+        audioSource.clip = audioClips[2];
+        audioSource.Play();
         GameProcessManager.instance.TriggerSceneMesh(false);
+
     }
     IEnumerator winLevel2()
     {
-        yield return new WaitForSeconds(6f);
+        audioSource.clip = audioClips[3];
+        audioSource.Play();
+        yield return new WaitForSeconds(audioSource.clip.length);
+        //yield return new WaitForSeconds(6f);
         L2Game.SetActive(false);
+        yield return new WaitForSeconds(2f);
         L1Arrow.SetActive(false);
         L2Arrow.SetActive(true);
+        //
+        audioSource.clip = audioClips[4];
+        audioSource.Play();
         L3Game.SetActive(true);
     }
 }
