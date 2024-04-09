@@ -22,11 +22,11 @@ public class L2Player : MonoBehaviour
     void Update()
     {
         MoveHorizontally();
-        if (GetInput("Left"))
+        if (GetInput("Right"))
         {
             MoveUp();
         }
-        else if (GetInput("Right"))
+        else if (GetInput("Left"))
         {
             MoveDown();
         }

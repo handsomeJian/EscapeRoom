@@ -43,6 +43,10 @@ public class CheckPassWord : MonoBehaviour
                 wrongBuzz.Play();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.K)) {
+            sender.SendData("Failed");
+        }
     }
     void CheckInput()
     {
@@ -54,7 +58,7 @@ public class CheckPassWord : MonoBehaviour
         {
             isArea1 = true;
             Debug.Log("Input matches the specific string!");
-            sender.SendMessage("Pass");
+            sender.SendData("Success");
             
         }
         else
@@ -64,7 +68,7 @@ public class CheckPassWord : MonoBehaviour
             userInputField.text = "";
             warning.SetActive(true);
             wrongBuzz.Play();
-            sender.SendMessage("Failed");
+            sender.SendData("Failed");
         }
     }
     void CloseWarning()

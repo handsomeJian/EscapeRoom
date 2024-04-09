@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2925,7 +2925,19 @@ MonoBehaviour:
   txPort: 8005
   OnRecieveData:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1599673818}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &769213656
 Transform:
   m_ObjectHideFlags: 0
@@ -5075,6 +5087,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9e33864b70cb883419e6d74970b79291, type: 3}
   - {fileID: 8300000, guid: 46ccc472b0c8d924b8d4e193960c12fc, type: 3}
   - {fileID: 8300000, guid: 2daadeab617aecb4b86d88d268d8ed14, type: 3}
+  OnGameStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLevel1End:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLevel2End:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGameEnd:
+    m_PersistentCalls:
+      m_Calls: []
   VisualEffects:
   - {fileID: 1600632039}
   - {fileID: 380774961}

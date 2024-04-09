@@ -22,6 +22,8 @@ public class MainGameManager : MonoBehaviour
 
     public GameObject[] VisualEffects;
 
+    public OVRPassthroughLayer PassthroughLayer;
+
     public static MainGameManager instance;
 
     bool hasStarted = false;
@@ -161,5 +163,21 @@ public class MainGameManager : MonoBehaviour
         L3Game.SetActive(false);
         
         OnGameEnd.Invoke();
+    }
+
+    public void SetL1Passthrough() {
+        PassthroughLayer.edgeRenderingEnabled = true;
+        PassthroughLayer.SetBrightnessContrastSaturation(-1, -1, -1);
+    }
+
+    public void SetL2Passthrough() {
+        PassthroughLayer.edgeRenderingEnabled = true;
+        PassthroughLayer.edgeColor = Color.white;
+        PassthroughLayer.SetBrightnessContrastSaturation(-1, 0.25f, 0);
+    }
+
+    public void SetL3Passthrough() {
+        PassthroughLayer.edgeRenderingEnabled = false;
+        PassthroughLayer.SetBrightnessContrastSaturation(0, 0, 0);
     }
 }

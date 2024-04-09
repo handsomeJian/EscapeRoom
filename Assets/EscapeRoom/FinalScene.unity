@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4477,6 +4477,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1599673820}
+        m_TargetAssemblyTypeName: MainGameManager, Assembly-CSharp
+        m_MethodName: OnReceiveStartMessage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &878257641
 Transform:
   m_ObjectHideFlags: 0
@@ -4820,6 +4832,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8151701086238038005, guid: d4de0aab9189e1d4894ba4aae3829231, type: 3}
   m_PrefabInstance: {fileID: 3139590984646555493}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &954556763 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5200747270949308285, guid: d4de0aab9189e1d4894ba4aae3829231, type: 3}
+  m_PrefabInstance: {fileID: 3139590984646555493}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 555725d48e9051a4bb6b8d45178c2fdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &984472968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7299,6 +7322,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 733843943}
+        m_TargetAssemblyTypeName: GameProcessManager, Assembly-CSharp
+        m_MethodName: TriggerSceneMesh
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1599673820}
+        m_TargetAssemblyTypeName: MainGameManager, Assembly-CSharp
+        m_MethodName: SetL1Passthrough
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   OnLevel1End:
     m_PersistentCalls:
       m_Calls:
@@ -7314,6 +7361,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1599673820}
+        m_TargetAssemblyTypeName: MainGameManager, Assembly-CSharp
+        m_MethodName: SetL2Passthrough
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnLevel2End:
     m_PersistentCalls:
       m_Calls:
@@ -7321,6 +7380,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: BGMManager, Assembly-CSharp
         m_MethodName: PlayBGM
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1599673820}
+        m_TargetAssemblyTypeName: MainGameManager, Assembly-CSharp
+        m_MethodName: SetL3Passthrough
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7348,6 +7419,7 @@ MonoBehaviour:
   - {fileID: 1600632039}
   - {fileID: 380774961}
   - {fileID: 1170860411}
+  PassthroughLayer: {fileID: 954556763}
 --- !u!82 &1599673821
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12891,12 +12963,48 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1022052203}
     - target: {fileID: 5200747270949308285, guid: d4de0aab9189e1d4894ba4aae3829231, type: 3}
+      propertyPath: _flipLutY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200747270949308285, guid: d4de0aab9189e1d4894ba4aae3829231, type: 3}
       propertyPath: colorMapType
-      value: 7
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200747270949308285, guid: d4de0aab9189e1d4894ba4aae3829231, type: 3}
+      propertyPath: edgeColor_.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200747270949308285, guid: d4de0aab9189e1d4894ba4aae3829231, type: 3}
+      propertyPath: edgeColor_.g
+      value: 0.50077343
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200747270949308285, guid: d4de0aab9189e1d4894ba4aae3829231, type: 3}
+      propertyPath: edgeColor_.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200747270949308285, guid: d4de0aab9189e1d4894ba4aae3829231, type: 3}
+      propertyPath: textureOpacity_
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5200747270949308285, guid: d4de0aab9189e1d4894ba4aae3829231, type: 3}
       propertyPath: colorMapEditorType_
-      value: 6
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200747270949308285, guid: d4de0aab9189e1d4894ba4aae3829231, type: 3}
+      propertyPath: edgeRenderingEnabled_
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200747270949308285, guid: d4de0aab9189e1d4894ba4aae3829231, type: 3}
+      propertyPath: colorMapEditorContrast
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200747270949308285, guid: d4de0aab9189e1d4894ba4aae3829231, type: 3}
+      propertyPath: colorMapEditorBrightness
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200747270949308285, guid: d4de0aab9189e1d4894ba4aae3829231, type: 3}
+      propertyPath: colorMapEditorSaturation
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6582724301161095310, guid: d4de0aab9189e1d4894ba4aae3829231, type: 3}
       propertyPath: m_IsActive
@@ -13682,7 +13790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneMesh: {fileID: 0}
-  SceneMeshMat: {fileID: 2100000, guid: 8d9ce0ec0b445ad488bb2d65db11aca2, type: 2}
+  SceneMeshMat: {fileID: 2100000, guid: 2bed94f1493e66c4e953ee16ff66f3f2, type: 2}
 --- !u!4 &4967262005303393714
 Transform:
   m_ObjectHideFlags: 0
