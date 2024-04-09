@@ -115,5 +115,6 @@ public class EscapeRoomSceneManager : MonoBehaviour
     {
         SceneMesh.GetComponentInChildren<MeshRenderer>().material = SceneMeshMat;
         GameProcessManager.instance.SceneMesh = SceneMesh;
+        SceneMesh.SetActive(false);
     }
 }

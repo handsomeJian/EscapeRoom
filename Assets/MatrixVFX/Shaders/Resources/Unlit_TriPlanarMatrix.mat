@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Unlit_TriPlanarMatrix
-  m_Shader: {fileID: 4800000, guid: c814ea026063c8b4ab888371ea9a3f9d, type: 3}
+  m_Shader: {fileID: 4800000, guid: 7fe4bfa32cc788f41b115fb1a3c0a1c3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -29,5 +29,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats: []
-    m_Colors: []
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

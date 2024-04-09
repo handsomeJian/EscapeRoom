@@ -235,15 +235,14 @@ public class SceneManagerHelper
         if (!mesh.TryGetMesh(vs, ts)) return;
 
         var trimesh = new Mesh();
-        /*
+        
         trimesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
         trimesh.SetVertices(vs);
         trimesh.SetTriangles(ts.ToArray(), 0);
-        */
-        //trimesh.SetColors(CreateColors(vs, ts));
-        //trimesh.SetColors(_SortedColoring(trimesh));
+        
 
-        var c = new Color[ts.Length];
+        
+        /*var c = new Color[ts.Length];
         var v = new Vector3[ts.Length];
         var idx = new int[ts.Length];
         for (var i = 0; i < ts.Length; i++)
@@ -259,7 +258,7 @@ public class SceneManagerHelper
         trimesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
         trimesh.SetVertices(v);
         trimesh.SetColors(c);
-        trimesh.SetIndices(idx, MeshTopology.Triangles, 0, true, 0);
+        trimesh.SetIndices(idx, MeshTopology.Triangles, 0, true, 0);*/
         trimesh.RecalculateNormals();
 
         var meshGO = GameObject.CreatePrimitive(PrimitiveType.Quad);

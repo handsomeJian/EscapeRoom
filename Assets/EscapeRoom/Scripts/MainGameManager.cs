@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MainGameManager : MonoBehaviour
 {
@@ -14,24 +15,48 @@ public class MainGameManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private List<AudioClip> audioClips;
 
-
+    public UnityEvent OnGameStart;
+    public UnityEvent OnLevel1End;
+    public UnityEvent OnLevel2End;
+    public UnityEvent OnGameEnd;
 
     public GameObject[] VisualEffects;
 
+    public static MainGameManager instance;
+
+    bool hasStarted = false;
+
     void Start()
     {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+
+
         //L2Scrpit.isWin.
-        StartCoroutine(StartLevel1());
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.A))
+        {
+            hasStarted = true;
+            StartL1();
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
         {
             StartCoroutine(winLevel1());
             level1Won = true; // Prevent coroutine from being called again
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            StartCoroutine(winLevel2());
+            level2Won = true; // Prevent coroutine from being called again
         }
 
         if (L1Script.playerScore == 3 && !level1Won)
@@ -45,6 +70,22 @@ public class MainGameManager : MonoBehaviour
             level2Won = true; // Prevent coroutine from being called again
         }
     }
+
+    public void OnReceiveStartMessage(string msg)
+    {
+        if (hasStarted)
+            return;
+        hasStarted = true;
+        StartL1();
+    }
+
+    public void StartL1()
+    {
+        StartCoroutine(StartLevel1());
+        OnGameStart.Invoke();
+    }
+
+
     IEnumerator StartLevel1()
     {
         yield return new WaitForSeconds(3f);
@@ -61,6 +102,9 @@ public class MainGameManager : MonoBehaviour
         yield return new WaitForSeconds(audioSource.clip.length);
         L1Game.SetActive(false);
         yield return new WaitForSeconds(2f);
+
+        OnLevel1End.Invoke();
+
         L1Arrow.SetActive(true);
         L2Game.SetActive(true);
         GameProcessManager.instance.TriggerSceneMesh(false);
@@ -88,6 +132,9 @@ public class MainGameManager : MonoBehaviour
         L2Game.SetActive(false);
         L1Arrow.SetActive(false);
         yield return new WaitForSeconds(2f);
+
+        OnLevel2End.Invoke();
+
         L2Arrow.SetActive(true);
         L3Game.SetActive(true);
         //
@@ -107,7 +154,8 @@ public class MainGameManager : MonoBehaviour
         yield return new WaitForSeconds(audioSource.clip.length);
 
         L3Game.SetActive(false);
-
+        
+        OnGameEnd.Invoke();
     }
 
 }
