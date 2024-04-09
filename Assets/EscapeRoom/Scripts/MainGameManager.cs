@@ -71,6 +71,11 @@ public class MainGameManager : MonoBehaviour
         }
     }
 
+    public void WinL3()
+    {
+        StartCoroutine(winLevel3());
+    }
+
     public void OnReceiveStartMessage(string msg)
     {
         if (hasStarted)
@@ -82,7 +87,6 @@ public class MainGameManager : MonoBehaviour
     public void StartL1()
     {
         StartCoroutine(StartLevel1());
-        OnGameStart.Invoke();
     }
 
 
@@ -92,6 +96,7 @@ public class MainGameManager : MonoBehaviour
         audioSource.clip = audioClips[0];
         audioSource.Play();
         yield return new WaitForSeconds(audioSource.clip.length);
+        OnGameStart.Invoke();
         L1Game.SetActive(true);
 
     }
@@ -157,5 +162,4 @@ public class MainGameManager : MonoBehaviour
         
         OnGameEnd.Invoke();
     }
-
 }

@@ -14,6 +14,7 @@ public class L3GameManager : MonoBehaviour
     private bool[] hasTeleported;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private List<AudioClip> audioClips;
+    public AudioClip LoseSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +69,19 @@ public class L3GameManager : MonoBehaviour
 
         }
        
+    }
+
+    public void OnReceiveMessage(string msg)
+    {
+        if (msg == "Success")
+        {
+            MainGameManager.instance.WinL3();
+        }
+        else
+        {
+            audioSource.clip = LoseSound;
+            audioSource.Play();
+        }
     }
 
 }

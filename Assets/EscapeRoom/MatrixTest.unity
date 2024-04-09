@@ -539,6 +539,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6908538673032138929, guid: 5be6bc5f67b1fef448be1db5ef083f26, type: 3}
   m_PrefabInstance: {fileID: 49917441}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &53716076 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7160118520418956072, guid: 846ba8cb2e8d21641b84cfdbda70db2f, type: 3}
+  m_PrefabInstance: {fileID: 2021735320}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82ab80cdfa95e9f45b7f3146617d3554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &54094324
 GameObject:
   m_ObjectHideFlags: 0
@@ -3773,7 +3784,19 @@ MonoBehaviour:
   txPort: 8005
   OnRecieveData:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 53716076}
+        m_TargetAssemblyTypeName: L3GameManager, Assembly-CSharp
+        m_MethodName: OnReceiveMessage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &769213656
 Transform:
   m_ObjectHideFlags: 0
@@ -9565,6 +9588,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1.59
       objectReference: {fileID: 0}
+    - target: {fileID: 7160118520418956072, guid: 846ba8cb2e8d21641b84cfdbda70db2f, type: 3}
+      propertyPath: LoseSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7f1e84bcaad311e4db21cb8583e18024, type: 3}
     - target: {fileID: 7160118520418956072, guid: 846ba8cb2e8d21641b84cfdbda70db2f, type: 3}
       propertyPath: distThreadhold
       value: 0.3
