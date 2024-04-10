@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Obstacle
   - End
+  - Paddle
+  - Wall
+  - Ball
+  - JJ
+  - L3JJ
   layers:
   - Default
   - TransparentFX

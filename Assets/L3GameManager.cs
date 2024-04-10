@@ -16,9 +16,11 @@ public class L3GameManager : MonoBehaviour
     [SerializeField] private List<AudioClip> audioClips;
     public AudioClip LoseSound;
     [SerializeField] private GameObject[] password;
+    public bool isTrigger;
     // Start is called before the first frame update
     void Start()
     {
+        isTrigger = false;
         hasTeleported = new bool[positions.Length];
             for (int i = 0; i < hasTeleported.Length; i++)
             {
@@ -30,11 +32,12 @@ public class L3GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        dist = Vector3.Distance(L3JJ.transform.position, RightHandAnchor.transform.position);
-        if (dist < distThreadhold || Input.GetKeyDown("space" )&& !hasTeleported[currentPositionIndex])//||Input.GetKeyDown("space"
+        //dist = Vector3.Distance(L3JJ.transform.position, RightHandAnchor.transform.position);dist < distThreadhold
+        if ( isTrigger && !hasTeleported[currentPositionIndex])//||Input.GetKeyDown("space"
         {
-            
+
             //Teleport();
+            isTrigger = false;
             StartCoroutine(TeleportAfterVFX());
             hasTeleported[currentPositionIndex] = true;
             // Initialize the hasTeleported array with the same length as positions and set all to false
@@ -42,7 +45,8 @@ public class L3GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator TeleportAfterVFX()
+
+        IEnumerator TeleportAfterVFX()
     {
         yield return new WaitForSeconds(1f);
         audioSource.clip = audioClips[currentPositionIndex];
