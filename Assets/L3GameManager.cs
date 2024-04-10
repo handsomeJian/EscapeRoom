@@ -15,6 +15,7 @@ public class L3GameManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private List<AudioClip> audioClips;
     public AudioClip LoseSound;
+    [SerializeField] private GameObject[] password;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +69,8 @@ public class L3GameManager : MonoBehaviour
             teleportVFX.SetActive(false);
 
         }
-       
+        password[currentPositionIndex].SetActive(true);
+
     }
 
     public void OnReceiveMessage(string msg)
