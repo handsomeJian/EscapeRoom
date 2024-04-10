@@ -22,6 +22,7 @@ public class PlayerPaddle : Paddle
         var moveVec = MaxPos.position - MinPos.position;
         float w = (dist - minDis) * 1.0f / (maxDis - minDis);
         w = Mathf.Clamp01(w);
+        w = 1 - w;
         var newPos = MinPos.position + moveVec * w;
         transform.position = newPos;
 
