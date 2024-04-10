@@ -122,10 +122,10 @@ void loop() {
   Serial.print("Send data: ");
   Serial.println(distance_cm);
 
-  Serial.println("Send to headset 2");
+  /*Serial.println("Send to headset 2");
   Serial.print(Udp.beginPacket(DESTINATION_IP2, DESTINATION_PORT));
   Udp.write(numBuffer);
-  Serial.print(Udp.endPacket());
+  Serial.print(Udp.endPacket());*/
 }
 
 

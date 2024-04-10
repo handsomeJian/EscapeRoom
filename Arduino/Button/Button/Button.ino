@@ -160,11 +160,11 @@ void SendEvent(String msg) {
   Serial.print(Udp.endPacket());
   Serial.println(eventBuffer);
 
-  Serial.print("Send to headset 2");
+  /*Serial.print("Send to headset 2");
   Serial.print(Udp.beginPacket(DESTINATION_IP2, DESTINATION_PORT));
   Udp.write(eventBuffer);
   Serial.print(Udp.endPacket());
-  Serial.println(eventBuffer);
+  Serial.println(eventBuffer);*/
 }
 
 void printWifiStatus() {
