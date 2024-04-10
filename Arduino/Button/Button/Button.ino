@@ -2,6 +2,7 @@
 
 // WIFI
 #define DESTINATION_IP "192.168.0.218"
+#define DESTINATION_IP2 "192.168.0.219"
 #define DESTINATION_PORT 8002
 
 #define SECRET_SSID "ETC_Test_Wi-Fi"
@@ -155,6 +156,12 @@ void SendEvent(String msg) {
   char eventBuffer[10];
   msg.toCharArray(eventBuffer, sizeof(eventBuffer));
   Serial.print(Udp.beginPacket(DESTINATION_IP, DESTINATION_PORT));
+  Udp.write(eventBuffer);
+  Serial.print(Udp.endPacket());
+  Serial.println(eventBuffer);
+
+  Serial.print("Send to headset 2");
+  Serial.print(Udp.beginPacket(DESTINATION_IP2, DESTINATION_PORT));
   Udp.write(eventBuffer);
   Serial.print(Udp.endPacket());
   Serial.println(eventBuffer);

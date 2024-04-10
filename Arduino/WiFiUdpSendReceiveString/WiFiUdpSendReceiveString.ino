@@ -16,6 +16,7 @@
 #include "SharpIR.h"
 
 #define DESTINATION_IP "192.168.0.218"
+#define DESTINATION_IP2 "192.168.0.219"
 #define DESTINATION_PORT 8000
 
 int status = WL_IDLE_STATUS;
@@ -120,6 +121,11 @@ void loop() {
   Serial.print(Udp.endPacket());
   Serial.print("Send data: ");
   Serial.println(distance_cm);
+
+  Serial.println("Send to headset 2");
+  Serial.print(Udp.beginPacket(DESTINATION_IP2, DESTINATION_PORT));
+  Udp.write(numBuffer);
+  Serial.print(Udp.endPacket());
 }
 
 
