@@ -31,9 +31,9 @@ public class L3GameManager : MonoBehaviour
     void Update()
     {
         dist = Vector3.Distance(L3JJ.transform.position, RightHandAnchor.transform.position);
-        if (dist < distThreadhold && !hasTeleported[currentPositionIndex])//||Input.GetKeyDown("space"
+        if (dist < distThreadhold || Input.GetKeyDown("space" )&& !hasTeleported[currentPositionIndex])//||Input.GetKeyDown("space"
         {
-            //Debug.Log("space key was pressed");
+            
             //Teleport();
             StartCoroutine(TeleportAfterVFX());
             hasTeleported[currentPositionIndex] = true;
@@ -57,6 +57,8 @@ public class L3GameManager : MonoBehaviour
         // Wait for the VFX to finish
         yield return new WaitForSeconds(audioSource.clip.length);
         //yield return new WaitForSeconds(.8f);
+        password[currentPositionIndex].SetActive(true);
+        StartCoroutine(Bounce(password[currentPositionIndex]));
         if (currentPositionIndex == 2)
         {
             L3JJ.SetActive(false);
@@ -69,7 +71,7 @@ public class L3GameManager : MonoBehaviour
             teleportVFX.SetActive(false);
 
         }
-        password[currentPositionIndex].SetActive(true);
+        
 
     }
 
@@ -86,4 +88,32 @@ public class L3GameManager : MonoBehaviour
         }
     }
 
+
+    IEnumerator Bounce(GameObject target)
+    {
+        Vector3 originalPosition = target.transform.localPosition;
+        Vector3 upPosition = originalPosition + new Vector3(0, 0.7f, 0); // Move up by 0.2 units
+
+        // Move up
+        float elapsedTime = 0;
+        float duration = 0.2f; // Duration of the up movement
+        while (elapsedTime < duration)
+        {
+            target.transform.localPosition = Vector3.Lerp(originalPosition, upPosition, (elapsedTime / duration));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Move down
+        elapsedTime = 0;
+        while (elapsedTime < duration)
+        {
+            target.transform.localPosition = Vector3.Lerp(upPosition, originalPosition, (elapsedTime / duration));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure the GameObject is exactly back at its original position
+        target.transform.localPosition = originalPosition;
+    }
 }
