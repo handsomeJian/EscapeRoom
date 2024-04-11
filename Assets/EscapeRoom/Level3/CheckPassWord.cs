@@ -16,6 +16,9 @@ public class CheckPassWord : MonoBehaviour
     [SerializeField] private RectTransform targetArea1, targetArea2; // The area where the click should not trigger the audio
     public UdpSocketSender sender;
     private bool isArea1;
+
+    public AudioClip WinSound;
+
     void Start()
     {
         isArea1 = true;
@@ -56,10 +59,11 @@ public class CheckPassWord : MonoBehaviour
 
         if (userInput.Equals(correctString))
         {
+            wrongBuzz.clip = WinSound;
+            wrongBuzz.Play();
             isArea1 = true;
             Debug.Log("Input matches the specific string!");
             sender.SendData("Success");
-            
         }
         else
         {

@@ -1377,6 +1377,7 @@ MonoBehaviour:
   targetArea1: {fileID: 703028916}
   targetArea2: {fileID: 1445199588}
   sender: {fileID: 630058296}
+  WinSound: {fileID: 8300000, guid: da5db911ce4d4f04b9a238b88e03663f, type: 3}
 --- !u!4 &1618104767
 Transform:
   m_ObjectHideFlags: 0

@@ -58,6 +58,8 @@ public class Ball : MonoBehaviour
         Vector3 normal = collision.GetContact(0).normal;
         Vector3 newDirection = Vector3.Reflect(rb.velocity.normalized, normal);
 
+        newDirection = transform.parent.TransformDirection(newDirection);
+
         // Ensure the ball only moves in the XY direction
         newDirection.z = 0;
         if (Mathf.Abs(newDirection.x) < minHorizontalSpeed)
@@ -71,6 +73,8 @@ public class Ball : MonoBehaviour
         }
         // Normalize the new direction to ensure consistent speed
         newDirection = newDirection.normalized;
+
+        newDirection = transform.parent.InverseTransformDirection(newDirection);
 
         rb.velocity = newDirection * currentSpeed;
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -459,7 +459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5366802450393600885, guid: 5be6bc5f67b1fef448be1db5ef083f26, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6908538673032138929, guid: 5be6bc5f67b1fef448be1db5ef083f26, type: 3}
       propertyPath: m_LocalScale.x
@@ -11343,7 +11343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2b2399eb776bf94e908930cf937f564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 0.5
+  baseSpeed: 0.25
   maxSpeed: 2
   minHorizontalSpeed: 2
   bonce: {fileID: 1280904738075883071}
@@ -12022,7 +12022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c66bb1aa5055643be7d334cf5a3063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 3
   useDynamicBounce: 1
   maxBounceAngle: 75
   ball: {fileID: 2084256847}
