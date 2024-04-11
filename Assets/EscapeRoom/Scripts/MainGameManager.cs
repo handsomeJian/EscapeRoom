@@ -100,7 +100,7 @@ public class MainGameManager : MonoBehaviour
         yield return new WaitForSeconds(audioSource.clip.length);
         OnGameStart.Invoke();
         L1Game.SetActive(true);
-
+        L1Arrow.SetActive(true);
     }
     IEnumerator winLevel1()
     {
@@ -108,12 +108,14 @@ public class MainGameManager : MonoBehaviour
         audioSource.Play();
         yield return new WaitForSeconds(audioSource.clip.length);
         L1Game.SetActive(false);
+        L1Arrow.SetActive(false);
         yield return new WaitForSeconds(2f);
 
         OnLevel1End.Invoke();
 
-        L1Arrow.SetActive(true);
+        
         L2Game.SetActive(true);
+        L2Arrow.SetActive(true);
         GameProcessManager.instance.TriggerSceneMesh(false);
         //play audio 2: player1,3: JJ, 4:player2, 
         audioSource.clip = audioClips[2];
@@ -137,14 +139,14 @@ public class MainGameManager : MonoBehaviour
         yield return new WaitForSeconds(audioSource.clip.length);
         //yield return new WaitForSeconds(6f);
         L2Game.SetActive(false);
-        L1Arrow.SetActive(false);
+        L2Arrow.SetActive(false);
         yield return new WaitForSeconds(2f);
 
         OnLevel2End.Invoke();
 
-        L2Arrow.SetActive(true);
+        
         L3Game.SetActive(true);
-        //
+
         audioSource.clip = audioClips[6];
         audioSource.Play();
         yield return new WaitForSeconds(audioSource.clip.length);
