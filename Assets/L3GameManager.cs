@@ -32,8 +32,8 @@ public class L3GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //dist = Vector3.Distance(L3JJ.transform.position, RightHandAnchor.transform.position);dist < distThreadhold
-        if ( isTrigger && !hasTeleported[currentPositionIndex])//||Input.GetKeyDown("space"
+        dist = Vector3.Distance(L3JJ.transform.position, RightHandAnchor.transform.position);
+        if ( dist < distThreadhold && !hasTeleported[currentPositionIndex])//||Input.GetKeyDown("space"isTrigger
         {
 
             //Teleport();

@@ -263,7 +263,7 @@ MonoBehaviour:
   L3JJ: {fileID: 7215719917655788715}
   RightHandAnchor: {fileID: 0}
   teleportVFX: {fileID: 3206912000120271821}
-  distThreadhold: 0.5
+  distThreadhold: 0.35
   audioSource: {fileID: 2357803596900155689}
   audioClips:
   - {fileID: 8300000, guid: 0b1ab03d30ac5cb418799426e30ccd2f, type: 3}
@@ -874,7 +874,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 5.95, y: 4.09, z: 3.66}
-  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4433935281825651309}
@@ -950,8 +950,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.44, y: 5.75, z: 12.540632}
-  m_Center: {x: -0.0000004967054, y: 0, z: 6.170313}
+  m_Size: {x: 4.44, y: 5.7500005, z: 16.18534}
+  m_Center: {x: -0.0000005676633, y: 0, z: 4.347968}
 --- !u!114 &7688695587752767059
 MonoBehaviour:
   m_ObjectHideFlags: 0

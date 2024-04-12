@@ -29,11 +29,11 @@ public class GameProcessManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.RawButton.X))
+        /*if (OVRInput.GetDown(OVRInput.RawButton.X))
         {
             sceneMeshState = !sceneMeshState;
             TriggerSceneMesh(sceneMeshState);
-        }
+        }*/
         if (OVRInput.GetDown(OVRInput.RawButton.B))
         {
             anchorState = !anchorState;
