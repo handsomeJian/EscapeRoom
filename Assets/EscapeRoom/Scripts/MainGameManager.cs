@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-
+using TMPro;
 public class MainGameManager : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -27,9 +27,12 @@ public class MainGameManager : MonoBehaviour
     public static MainGameManager instance;
 
     bool hasStarted = false;
-
+    [SerializeField] private TMP_Text countdownText; // Assign in the inspector by dragging the Text component here.
+    [SerializeField] private float countdownTime = 720; // Countdown time in seconds.
+    [SerializeField] private GameObject timeUpImg;
     void Start()
     {
+       
         if (instance != null)
         {
             Destroy(gameObject);
@@ -101,6 +104,7 @@ public class MainGameManager : MonoBehaviour
         OnGameStart.Invoke();
         L1Game.SetActive(true);
         L1Arrow.SetActive(true);
+        StartCoroutine(StartCountdown());
     }
     IEnumerator winLevel1()
     {
@@ -181,5 +185,29 @@ public class MainGameManager : MonoBehaviour
     public void SetL3Passthrough() {
         PassthroughLayer.edgeRenderingEnabled = false;
         PassthroughLayer.SetBrightnessContrastSaturation(0, 0, 0);
+    }
+
+    private IEnumerator StartCountdown()
+    {
+        float currentTime = countdownTime;
+        while (currentTime > 0)
+        {
+            // Calculate minutes and seconds from currentTime.
+            int minutes = Mathf.FloorToInt(currentTime / 60);
+            int seconds = Mathf.FloorToInt(currentTime % 60);
+
+            // Update UI Text to show time in "minutes:seconds" format.
+            countdownText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+            // Wait for a second before updating the countdown.
+            yield return new WaitForSeconds(1f);
+
+            // Decrease current time by one second.
+            currentTime--;
+        }
+
+        // When the countdown is over, change the scale of the text object.
+        countdownText.text = "00:00";
+        timeUpImg.SetActive(true);
     }
 }
