@@ -56,8 +56,7 @@ public class CheckPassWord : MonoBehaviour
 
         string userInput = userInputField.text;
 
-
-        if (userInput.Equals(correctString))
+        if (userInput.ToUpper().Equals(correctString))
         {
             wrongBuzz.clip = WinSound;
             wrongBuzz.Play();

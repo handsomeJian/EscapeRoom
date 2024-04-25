@@ -15,10 +15,14 @@ public class MainGameManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private List<AudioClip> audioClips;
 
+    public AudioClip failedClip;
+
     public UnityEvent OnGameStart;
     public UnityEvent OnLevel1End;
     public UnityEvent OnLevel2End;
     public UnityEvent OnGameEnd;
+
+    public UnityEvent OnTimeEnd;
 
     public GameObject[] VisualEffects;
 
@@ -179,7 +183,7 @@ public class MainGameManager : MonoBehaviour
     public void SetL2Passthrough() {
         PassthroughLayer.edgeRenderingEnabled = true;
         PassthroughLayer.edgeColor = Color.white;
-        PassthroughLayer.SetBrightnessContrastSaturation(-1, 0.25f, 0);
+        PassthroughLayer.SetBrightnessContrastSaturation(-0.25f, 0.25f, 0);
     }
 
     public void SetL3Passthrough() {
@@ -209,5 +213,12 @@ public class MainGameManager : MonoBehaviour
         // When the countdown is over, change the scale of the text object.
         countdownText.text = "00:00";
         timeUpImg.SetActive(true);
+        L1Game.SetActive(false);
+        L2Game.SetActive(false);
+        L3Game.SetActive(false);
+        //audioSource.Stop();
+        OnTimeEnd.Invoke();
+        audioSource.clip = failedClip;
+        audioSource.Play();
     }
 }
